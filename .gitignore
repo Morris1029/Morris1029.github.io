@@ -1,0 +1,10 @@
+# Keep the original high-resolution photo local; optimized WebP files are deployed.
+life-photo.jpg
+
+# Local tooling and generated files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+node_modules/
+dist/
