@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const formatter = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title="博客｜莫东亮"
+  description="关于信息检索、AI 智能体、数据治理与工程实践的思考和记录。"
+>
+  <main id="main-content" class="blog-shell">
+    <header class="blog-hero">
+      <p class="eyebrow">Notes & explorations</p>
+      <h1>博客</h1>
+      <p class="blog-intro">
+        记录关于信息检索、AI 智能体、数据治理与工程实践的观察、方法和阶段性思考。
+      </p>
+    </header>
+
+    <section class="blog-list" aria-label="文章列表">
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <a class="post-card" href={`/blog/${post.id}/`}>
+            <time datetime={post.data.pubDate.toISOString()}>
+              {formatter.format(post.data.pubDate)}
+            </time>
+            <div>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+            </div>
+            <span class="post-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))
+      ) : (
+        <p class="empty-state">文章正在整理中，稍后见。</p>
+      )}
+    </section>
+  </main>
+</BaseLayout>

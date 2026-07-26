@@ -1,54 +1,12 @@
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="莫东亮的个人主页，关注信息检索、AI 智能体应用、数据治理与卓越工程师培养智能应用。"
-    />
-    <meta name="theme-color" content="#143b2b" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="莫东亮｜信息检索 · AI 智能体 · 数据治理" />
-    <meta
-      property="og:description"
-      content="武汉大学信息管理学院数据资源管理专业硕士研究生，记录研究、项目与工程实践。"
-    />
-    <meta property="og:image" content="https://morris1029.github.io/assets/life-photo-1920.webp" />
-    <meta property="og:url" content="https://morris1029.github.io/" />
-    <link rel="canonical" href="https://morris1029.github.io/" />
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="assets/life-photo-960.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
-    <title>莫东亮｜信息检索 · AI 智能体 · 数据治理</title>
-  </head>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
 
-  <body>
-    <a class="skip-link" href="#main-content">跳到主要内容</a>
-
-    <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="返回首页">
-        <span class="brand-mark">MDL</span>
-        <span class="brand-name">莫东亮</span>
-      </a>
-
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span class="sr-only">打开导航</span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <nav class="site-nav" id="site-nav" aria-label="主导航">
-        <a href="#about">关于</a>
-        <a href="#focus">研究</a>
-        <a href="#experience">经历</a>
-        <a href="#projects">项目</a>
-        <a href="#honors">荣誉</a>
-        <a href="#contact">联系</a>
-      </nav>
-    </header>
-
+<BaseLayout
+  title="莫东亮｜信息检索 · AI 智能体 · 数据治理"
+  description="莫东亮的个人主页，关注信息检索、AI 智能体应用、数据治理与卓越工程师培养智能应用。"
+  isHome={true}
+>
     <main id="main-content">
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-copy reveal">
@@ -81,11 +39,11 @@
         <figure class="hero-portrait reveal" data-delay="1">
           <picture>
             <source
-              srcset="assets/life-photo-960.webp 960w, assets/life-photo-1920.webp 1920w"
+              srcset="/assets/life-photo-960.webp 960w, /assets/life-photo-1920.webp 1920w"
               type="image/webp"
             />
             <img
-              src="assets/life-photo-960.webp"
+              src="/assets/life-photo-960.webp"
               alt="莫东亮身穿中山大学学士服的毕业照"
               width="960"
               height="640"
@@ -323,10 +281,4 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>© <span data-year></span> 莫东亮</p>
-      <p>Built with plain HTML, CSS & curiosity.</p>
-      <a href="#top">回到顶部 ↑</a>
-    </footer>
-  </body>
-</html>
+</BaseLayout>

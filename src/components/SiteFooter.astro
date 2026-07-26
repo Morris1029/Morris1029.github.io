@@ -1,0 +1,9 @@
+---
+const { isHome = false } = Astro.props;
+---
+
+<footer class="site-footer">
+  <p>© <span data-year></span> 莫东亮</p>
+  <p>Built with Astro, Markdown & curiosity.</p>
+  <a href={isHome ? '#top' : '/'}>{isHome ? '回到顶部 ↑' : '返回首页 →'}</a>
+</footer>

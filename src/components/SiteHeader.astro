@@ -1,0 +1,28 @@
+---
+const { isHome = false } = Astro.props;
+const sectionHref = (section: string) => `${isHome ? '' : '/'}#${section}`;
+---
+
+<a class="skip-link" href="#main-content">跳到主要内容</a>
+
+<header class="site-header" data-header>
+  <a class="brand" href={sectionHref('top')} aria-label="返回首页">
+    <span class="brand-mark">MDL</span>
+    <span class="brand-name">莫东亮</span>
+  </a>
+
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+    <span class="sr-only">打开导航</span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="site-nav" id="site-nav" aria-label="主导航">
+    <a href={sectionHref('about')}>关于</a>
+    <a href={sectionHref('focus')}>研究</a>
+    <a href={sectionHref('experience')}>经历</a>
+    <a href={sectionHref('projects')}>项目</a>
+    <a href="/blog/">博客</a>
+    <a href={sectionHref('contact')}>联系</a>
+  </nav>
+</header>

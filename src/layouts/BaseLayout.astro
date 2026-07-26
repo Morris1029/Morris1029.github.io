@@ -1,0 +1,48 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  isHome?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = '/assets/life-photo-1920.webp',
+  isHome = false,
+} = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#143b2b" />
+    <meta property="og:type" content={isHome ? 'website' : 'article'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:url" content={canonicalURL} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    {isHome && (
+      <link rel="preload" href="/assets/life-photo-960.webp" as="image" type="image/webp" />
+    )}
+    <script src="/script.js" defer></script>
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader isHome={isHome} />
+    <slot />
+    <SiteFooter isHome={isHome} />
+  </body>
+</html>
