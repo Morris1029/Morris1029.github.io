@@ -6,7 +6,7 @@
 
 - Astro 静态站点生成，不需要后端或数据库
 - Markdown 内容集合，文章会自动生成列表页和详情页
-- 首页使用滚动驱动视频叙事，并以 React island 加载 ShapeWaves 涟漪效果
+- 首页使用分章节滚动视频叙事，并以 React island 加载 ShapeWaves 与鼠标涟漪效果
 - 响应式页面，支持桌面端与移动端
 - GitHub Actions 构建并发布到 GitHub Pages
 - 首屏视频与 WebP 海报位于 `public/assets/story/`，本地原始素材不进入仓库

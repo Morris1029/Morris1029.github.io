@@ -1,36 +1,16 @@
 ---
 import ShapeWavesLayer from './shape-waves/ShapeWavesLayer.jsx';
 
-const beats = [
-  {
-    number: '01',
-    label: 'Curiosity / 00:00—00:03',
-    title: '从好奇出发，把复杂问题拆成第一条可行路径。',
-    start: 0.08,
-    end: 0.3,
-    position: 'one',
-  },
-  {
-    number: '02',
-    label: 'Connection / 00:03—00:07',
-    title: '让信息、模型与工程，在真实场景里彼此连接。',
-    start: 0.35,
-    end: 0.62,
-    position: 'two',
-  },
-  {
-    number: '03',
-    label: 'Impact / 00:07—00:10',
-    title: '把每次探索落成可用产品，也沉淀为下一次出发。',
-    start: 0.67,
-    end: 0.92,
-    position: 'three',
-  },
+const chapters = [
+  { number: '00', name: 'Introduction', time: 0.72 },
+  { number: '01', name: 'Curiosity', time: 2.65 },
+  { number: '02', name: 'Connection', time: 5.15 },
+  { number: '03', name: 'Impact', time: 8.35 },
 ];
 ---
 
 <section class="story" id="top" data-story aria-labelledby="story-title">
-  <div class="story-sticky">
+  <div class="story-sticky" data-story-sticky>
     <div class="story-media" data-story-media aria-hidden="true">
       <img
         class="story-poster"
@@ -41,30 +21,11 @@ const beats = [
         fetchpriority="high"
       />
       <video
-        class="story-video story-video--intro"
-        data-story-video="intro"
+        class="story-video"
+        data-story-video
         src="/assets/story/hero-story.mp4"
         poster="/assets/story/hero-poster.webp"
         preload="auto"
-        autoplay
-        muted
-        playsinline
-        disablepictureinpicture
-      ></video>
-      <video
-        class="story-video story-video--main"
-        data-story-video="main"
-        src="/assets/story/hero-story.mp4"
-        preload="auto"
-        muted
-        playsinline
-        disablepictureinpicture
-      ></video>
-      <video
-        class="story-video story-video--outro"
-        data-story-video="outro"
-        src="/assets/story/hero-story.mp4"
-        preload="metadata"
         muted
         playsinline
         disablepictureinpicture
@@ -74,9 +35,28 @@ const beats = [
     <div class="story-shade" aria-hidden="true"></div>
     <div class="story-grain" aria-hidden="true"></div>
     <ShapeWavesLayer client:media="(pointer: fine) and (prefers-reduced-motion: no-preference)" />
+    <div class="story-ripples" data-story-ripples aria-hidden="true"></div>
 
-    <div class="story-frame">
-      <div class="story-intro" data-story-intro>
+    <div class="story-frame" aria-hidden="true">
+      <p class="story-frame__hint">Move to meet · Scroll to turn the page</p>
+      <div class="story-hud">
+        <div class="story-hud__chapter">
+          <span data-story-number>00 / 03</span>
+          <span data-story-name>Introduction</span>
+        </div>
+        <div class="story-hud__steps" data-story-markers>
+          {chapters.map((chapter, index) => (
+            <span class:list={[{ 'is-active': index === 0 }]} data-marker={index}></span>
+          ))}
+        </div>
+        <div class="story-hud__signature"><span>MDL</span><span>© 2026</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-pages" data-story-pages>
+    <article class="story-page story-page--intro is-active" data-story-page data-time={chapters[0].time}>
+      <div class="story-page__content story-page__content--intro">
         <p class="story-kicker">Morris / Developer & Researcher</p>
         <h1 id="story-title"><span>Build</span><span>With</span><span>Intent.</span></h1>
         <p class="story-lead">让信息成为可以行动的知识。</p>
@@ -88,45 +68,36 @@ const beats = [
           <a href="/blog/">阅读博客 <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-
-      <aside class="story-note story-note--top" data-story-intro aria-label="个人特点">
+      <aside class="story-note story-note--top">
         <strong>A Curious Mind.</strong>
-        <p>从需求、数据到系统实现，让每一次探索都形成可靠的连接。</p>
+        <p>移动鼠标与人物相遇，向下滚动翻开我的故事。</p>
       </aside>
+    </article>
 
-      <aside class="story-note story-note--bottom" data-story-intro aria-label="滚动提示">
-        <strong>Hello, You.</strong>
-        <p>继续向下，看看一名开发者如何把好奇心变成真实作品。</p>
-      </aside>
-
-      <ol class="story-beats" aria-label="视频叙事章节">
-        {beats.map((beat) => (
-          <li
-            class={`story-beat story-beat--${beat.position}`}
-            data-story-beat
-            data-start={beat.start}
-            data-end={beat.end}
-          >
-            <span class="story-beat__number">{beat.number}</span>
-            <div>
-              <p>{beat.label}</p>
-              <h2>{beat.title}</h2>
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <div class="story-hud" aria-hidden="true">
-        <div class="story-hud__chapter"><span>01 / INTRO</span><span>Scroll story</span></div>
-        <div class="story-hud__track"><span data-story-progress></span></div>
-        <div class="story-hud__time"><span data-story-time>00:00 / 00:10</span><span>MDL © 2026</span></div>
+    <article class="story-page story-page--one" data-story-page data-time={chapters[1].time}>
+      <div class="story-page__content story-page__content--left">
+        <p class="story-chapter"><span>01</span> Curiosity / Chapter One</p>
+        <h2>从好奇出发，<br />把复杂问题拆成<br />第一条可行路径。</h2>
+        <p>先理解问题，再选择技术。每一次可靠的实现，都从一个足够具体的问题开始。</p>
       </div>
+    </article>
 
-      <div class="story-scroll" data-story-intro aria-hidden="true">
-        <span>Scroll to explore</span>
-        <i></i>
+    <article class="story-page story-page--two" data-story-page data-time={chapters[2].time}>
+      <div class="story-page__content story-page__content--right">
+        <p class="story-chapter"><span>02</span> Connection / Chapter Two</p>
+        <h2>让信息、模型与工程，<br />在真实场景里彼此连接。</h2>
+        <p>我关注的不只是模型能力，而是信息怎样进入流程、帮助判断，并最终产生行动。</p>
       </div>
-    </div>
+    </article>
+
+    <article class="story-page story-page--three" data-story-page data-time={chapters[3].time}>
+      <div class="story-page__content story-page__content--right story-page__content--low">
+        <p class="story-chapter"><span>03</span> Impact / Chapter Three</p>
+        <h2>把每次探索落成可用产品，<br />也沉淀为下一次出发。</h2>
+        <p>从原型、系统到持续记录，让短暂的灵感成为能够被验证、复用和继续生长的作品。</p>
+        <a class="story-next" href="#about">继续认识我 <span aria-hidden="true">↓</span></a>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -134,175 +105,180 @@ const beats = [
   const story = document.querySelector<HTMLElement>('[data-story]');
 
   if (story) {
-    const sticky = story.querySelector<HTMLElement>('.story-sticky');
+    const sticky = story.querySelector<HTMLElement>('[data-story-sticky]');
     const media = story.querySelector<HTMLElement>('[data-story-media]');
-    const introVideo = story.querySelector<HTMLVideoElement>('[data-story-video="intro"]');
-    const mainVideo = story.querySelector<HTMLVideoElement>('[data-story-video="main"]');
-    const outroVideo = story.querySelector<HTMLVideoElement>('[data-story-video="outro"]');
-    const introElements = [...story.querySelectorAll<HTMLElement>('[data-story-intro]')];
-    const beats = [...story.querySelectorAll<HTMLElement>('[data-story-beat]')];
-    const progressBar = story.querySelector<HTMLElement>('[data-story-progress]');
-    const timeLabel = story.querySelector<HTMLElement>('[data-story-time]');
+    const video = story.querySelector<HTMLVideoElement>('[data-story-video]');
+    const pages = [...story.querySelectorAll<HTMLElement>('[data-story-page]')];
+    const markers = [...story.querySelectorAll<HTMLElement>('[data-marker]')];
+    const chapterNumber = story.querySelector<HTMLElement>('[data-story-number]');
+    const chapterName = story.querySelector<HTMLElement>('[data-story-name]');
+    const rippleLayer = story.querySelector<HTMLElement>('[data-story-ripples]');
     const header = document.querySelector<HTMLElement>('[data-header]');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const finePointer = window.matchMedia('(pointer: fine)');
     const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
-    const duration = 10.005;
-    const introEnd = 1.6;
-    const outroStart = 8.4;
-    let progress = 0;
+    const chapterNames = ['Introduction', 'Curiosity', 'Connection', 'Impact'];
+    let activeIndex = -1;
     let frameId = 0;
-    let mode = '';
+    let pendingTime = Number(pages[0]?.dataset.time ?? 0.72);
+    let lastPointerSeek = 0;
+    let lastRippleAt = 0;
+    let lastRippleX = -100;
+    let lastRippleY = -100;
+    let resetTimer = 0;
 
     const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-    const smoothstep = (min: number, max: number, value: number) => {
-      const amount = clamp((value - min) / (max - min));
-      return amount * amount * (3 - 2 * amount);
-    };
-    const formatTime = (seconds: number) => `00:${String(Math.floor(seconds)).padStart(2, '0')}`;
 
     const setStaticMode = () => {
       story.classList.add('is-static');
-      introVideo?.pause();
-      mainVideo?.pause();
-      outroVideo?.pause();
+      video?.pause();
     };
 
-    const play = (video: HTMLVideoElement | null) => {
-      video?.play().catch(() => {
-        video?.pause();
-      });
+    const seek = (time: number, withTransition = false) => {
+      if (!video || story.classList.contains('is-static')) return;
+      pendingTime = clamp(time, 0.05, Math.max(0.05, (video.duration || 10.005) - 0.05));
+      if (video.readyState < 1 || Math.abs(video.currentTime - pendingTime) < 0.035) return;
+      if (withTransition && media) media.classList.add('is-switching');
+      video.currentTime = pendingTime;
     };
 
-    const keepInSegment = (video: HTMLVideoElement | null, start: number, end: number) => {
-      if (!video) return;
-      const reset = () => {
-        if (video.currentTime >= end || video.currentTime < start) video.currentTime = start;
-      };
-      video.addEventListener('timeupdate', reset);
-      video.addEventListener('ended', reset);
+    const finishSeek = () => {
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => media?.classList.remove('is-switching'), 70);
     };
 
-    keepInSegment(introVideo, 0, introEnd);
-    keepInSegment(outroVideo, outroStart, duration);
-
-    outroVideo?.addEventListener('loadedmetadata', () => {
-      outroVideo.currentTime = outroStart;
+    video?.addEventListener('loadedmetadata', () => {
+      video.pause();
+      seek(pendingTime);
     }, { once: true });
+    video?.addEventListener('seeked', finishSeek);
+    video?.addEventListener('error', setStaticMode, { once: true });
 
-    [introVideo, mainVideo, outroVideo].forEach((video) => {
-      video?.addEventListener('error', setStaticMode, { once: true });
-    });
-
-    const setPlaybackMode = (nextProgress: number) => {
-      const nextMode = nextProgress >= 0.96 ? 'outro' : nextProgress <= 0.02 ? 'intro' : 'main';
-      if (nextMode === mode) return;
-      mode = nextMode;
-
-      if (nextMode === 'intro') {
-        outroVideo?.pause();
-        play(introVideo);
-      } else if (nextMode === 'outro') {
-        introVideo?.pause();
-        if (outroVideo && (outroVideo.currentTime < outroStart || outroVideo.currentTime >= duration)) {
-          outroVideo.currentTime = outroStart;
-        }
-        play(outroVideo);
-      } else {
-        introVideo?.pause();
-        outroVideo?.pause();
-      }
+    const setActivePage = (index: number) => {
+      if (index === activeIndex || !pages[index]) return;
+      activeIndex = index;
+      pages.forEach((page, pageIndex) => page.classList.toggle('is-active', pageIndex === index));
+      markers.forEach((marker, markerIndex) => marker.classList.toggle('is-active', markerIndex === index));
+      if (chapterNumber) chapterNumber.textContent = `${String(index).padStart(2, '0')} / 03`;
+      if (chapterName) chapterName.textContent = chapterNames[index] ?? '';
+      seek(Number(pages[index].dataset.time), true);
     };
 
     const update = () => {
       frameId = 0;
-      if (!sticky) return;
+      const storyRect = story.getBoundingClientRect();
+      const viewportCenter = window.innerHeight * 0.52;
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
 
-      const rect = story.getBoundingClientRect();
-      const travel = Math.max(1, story.offsetHeight - window.innerHeight);
-      progress = clamp(-rect.top / travel);
-      story.style.setProperty('--story-progress', String(progress));
-
-      const introOpacity = 1 - smoothstep(0, 0.02, progress);
-      const outroOpacity = smoothstep(0.96, 0.98, progress);
-      const mainOpacity = clamp(1 - introOpacity - outroOpacity);
-      story.style.setProperty('--intro-video-opacity', String(introOpacity));
-      story.style.setProperty('--main-video-opacity', String(mainOpacity));
-      story.style.setProperty('--outro-video-opacity', String(outroOpacity));
-
-      const introCopyOpacity = 1 - smoothstep(0.03, 0.12, progress);
-      introElements.forEach((element) => {
-        element.style.setProperty('--intro-opacity', String(introCopyOpacity));
-      });
-
-      beats.forEach((beat) => {
-        const start = Number(beat.dataset.start);
-        const end = Number(beat.dataset.end);
-        const opacity = smoothstep(start, start + 0.045, progress)
-          * (1 - smoothstep(end - 0.045, end, progress));
-        beat.style.setProperty('--beat-opacity', String(opacity));
-        beat.toggleAttribute('data-active', opacity > 0.5);
-      });
-
-      if (!reduceMotion.matches && !saveData && !story.classList.contains('is-static')) {
-        setPlaybackMode(progress);
-        if (mainVideo && mainVideo.readyState >= 1) {
-          const targetTime = progress * duration;
-          if (Math.abs(mainVideo.currentTime - targetTime) > 1 / 30) mainVideo.currentTime = targetTime;
+      pages.forEach((page, index) => {
+        const rect = page.getBoundingClientRect();
+        const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
         }
-      }
+      });
 
-      if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
-      if (timeLabel) timeLabel.textContent = `${formatTime(progress * duration)} / 00:10`;
-      header?.classList.toggle('is-over-story', rect.bottom > 72 && rect.top < window.innerHeight);
+      setActivePage(closestIndex);
+      header?.classList.toggle('is-over-story', storyRect.bottom > 72 && storyRect.top < window.innerHeight);
+
+      if (storyRect.bottom <= 0 || storyRect.top >= window.innerHeight) {
+        media?.style.setProperty('--face-x', '0px');
+        media?.style.setProperty('--face-y', '0px');
+        media?.style.setProperty('--face-rotate-x', '0deg');
+        media?.style.setProperty('--face-rotate-y', '0deg');
+      }
     };
 
     const requestUpdate = () => {
       if (!frameId) frameId = window.requestAnimationFrame(update);
     };
 
+    const spawnRipple = (clientX: number, clientY: number, strong = false) => {
+      if (!rippleLayer || !sticky || !finePointer.matches || reduceMotion.matches) return;
+      const bounds = sticky.getBoundingClientRect();
+      if (clientX < bounds.left || clientX > bounds.right || clientY < bounds.top || clientY > bounds.bottom) return;
+
+      while (rippleLayer.childElementCount >= 12) rippleLayer.firstElementChild?.remove();
+      const ripple = document.createElement('i');
+      ripple.className = strong ? 'story-ripple is-strong' : 'story-ripple';
+      ripple.style.left = `${clientX - bounds.left}px`;
+      ripple.style.top = `${clientY - bounds.top}px`;
+      ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+      rippleLayer.append(ripple);
+    };
+
     const handlePointerMove = (event: PointerEvent) => {
-      const bounds = sticky?.getBoundingClientRect();
-      if (!bounds || !finePointer.matches || reduceMotion.matches) return;
+      if (!sticky || !media || !finePointer.matches || reduceMotion.matches || saveData) return;
+      const bounds = sticky.getBoundingClientRect();
+      const storyBounds = story.getBoundingClientRect();
+      if (storyBounds.bottom <= 0 || storyBounds.top >= window.innerHeight) return;
+
       const xRatio = clamp((event.clientX - bounds.left) / bounds.width);
       const yRatio = clamp((event.clientY - bounds.top) / bounds.height);
+      const x = xRatio - 0.5;
+      const y = yRatio - 0.5;
       story.style.setProperty('--pointer-x', `${xRatio * 100}%`);
       story.style.setProperty('--pointer-y', `${yRatio * 100}%`);
+      media.style.setProperty('--face-x', `${x * 34}px`);
+      media.style.setProperty('--face-y', `${y * 20}px`);
+      media.style.setProperty('--face-rotate-x', `${y * -3.2}deg`);
+      media.style.setProperty('--face-rotate-y', `${x * 4.8}deg`);
 
-      if (progress <= 0.03 && media) {
-        media.style.setProperty('--parallax-x', `${(xRatio - 0.5) * 24}px`);
-        media.style.setProperty('--parallax-y', `${(yRatio - 0.5) * 16}px`);
-      } else if (media) {
-        media.style.setProperty('--parallax-x', '0px');
-        media.style.setProperty('--parallax-y', '0px');
+      const now = performance.now();
+      if (video && activeIndex >= 0 && now - lastPointerSeek > 72) {
+        const baseTime = Number(pages[activeIndex]?.dataset.time ?? 0.72);
+        seek(baseTime + x * 0.58 + y * 0.22);
+        lastPointerSeek = now;
       }
+
+      const travelled = Math.hypot(event.clientX - lastRippleX, event.clientY - lastRippleY);
+      if (now - lastRippleAt > 85 && travelled > 30) {
+        spawnRipple(event.clientX, event.clientY);
+        lastRippleAt = now;
+        lastRippleX = event.clientX;
+        lastRippleY = event.clientY;
+      }
+    };
+
+    const handlePointerDown = (event: PointerEvent) => spawnRipple(event.clientX, event.clientY, true);
+
+    const resetPointer = () => {
+      media?.style.setProperty('--face-x', '0px');
+      media?.style.setProperty('--face-y', '0px');
+      media?.style.setProperty('--face-rotate-x', '0deg');
+      media?.style.setProperty('--face-rotate-y', '0deg');
+      if (activeIndex >= 0) seek(Number(pages[activeIndex]?.dataset.time ?? 0.72));
     };
 
     if (reduceMotion.matches || saveData) setStaticMode();
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate, { passive: true });
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
+    document.documentElement.addEventListener('mouseleave', resetPointer);
     reduceMotion.addEventListener('change', () => window.location.reload());
     update();
   }
 </script>
 
 <style is:global>
+  html:has(.story) {
+    scroll-snap-type: y proximity;
+  }
+
   .story {
     --story-cream: #f4edde;
-    --story-olive: #7b7564;
     --story-dark: #151713;
-    --intro-video-opacity: 1;
-    --main-video-opacity: 0;
-    --outro-video-opacity: 0;
     position: relative;
-    height: 500svh;
     color: var(--story-cream);
     background: var(--story-dark);
   }
 
   .story-sticky {
     position: sticky;
+    z-index: 0;
     top: 0;
     height: 100svh;
     min-height: 650px;
@@ -312,11 +288,17 @@ const beats = [
   }
 
   .story-media {
+    --face-x: 0px;
+    --face-y: 0px;
+    --face-rotate-x: 0deg;
+    --face-rotate-y: 0deg;
     position: absolute;
     z-index: 0;
-    inset: -2.5%;
-    transform: translate3d(var(--parallax-x, 0), var(--parallax-y, 0), 0) scale(1.04);
-    transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    inset: -4%;
+    transform: perspective(1200px) translate3d(var(--face-x), var(--face-y), 0)
+      rotateX(var(--face-rotate-x)) rotateY(var(--face-rotate-y)) scale(1.08);
+    transform-origin: 50% 44%;
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
   }
 
@@ -328,25 +310,20 @@ const beats = [
     height: 100%;
     object-fit: cover;
     object-position: center 46%;
-  }
-
-  .story-poster {
-    opacity: 1;
-    filter: saturate(0.78) contrast(1.04) brightness(0.78);
+    filter: saturate(0.8) contrast(1.05) brightness(0.76);
   }
 
   .story-video {
-    filter: saturate(0.78) contrast(1.04) brightness(0.78);
-    transition: opacity 180ms linear;
+    opacity: 1;
+    transition: opacity 170ms ease, filter 170ms ease;
   }
 
-  .story-video--intro { opacity: var(--intro-video-opacity); }
-  .story-video--main { opacity: var(--main-video-opacity); }
-  .story-video--outro { opacity: var(--outro-video-opacity); }
-
-  .story.is-static .story-video {
-    display: none;
+  .story-media.is-switching .story-video {
+    opacity: 0.28;
+    filter: saturate(0.7) contrast(1.02) brightness(0.62) blur(2px);
   }
+
+  .story.is-static .story-video { display: none; }
 
   .story-shade {
     position: absolute;
@@ -354,9 +331,9 @@ const beats = [
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(90deg, rgba(12, 15, 12, 0.72) 0%, rgba(12, 15, 12, 0.18) 34%, transparent 58%, rgba(12, 15, 12, 0.42) 100%),
-      linear-gradient(180deg, rgba(8, 10, 8, 0.42) 0%, transparent 24%, transparent 70%, rgba(8, 10, 8, 0.62) 100%),
-      radial-gradient(circle at 50% 42%, transparent 20%, rgba(12, 14, 11, 0.34) 100%);
+      linear-gradient(90deg, rgba(12, 15, 12, 0.76) 0%, rgba(12, 15, 12, 0.16) 35%, transparent 58%, rgba(12, 15, 12, 0.5) 100%),
+      linear-gradient(180deg, rgba(8, 10, 8, 0.44) 0%, transparent 24%, transparent 69%, rgba(8, 10, 8, 0.7) 100%),
+      radial-gradient(circle at 50% 42%, transparent 18%, rgba(12, 14, 11, 0.38) 100%);
   }
 
   .story-grain {
@@ -364,42 +341,139 @@ const beats = [
     z-index: 5;
     inset: 0;
     pointer-events: none;
-    opacity: 0.22;
+    opacity: 0.2;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
     mix-blend-mode: soft-light;
   }
 
+  .story-ripples {
+    position: absolute;
+    z-index: 7;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .story-ripple {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 1px solid rgba(250, 242, 226, 0.82);
+    border-radius: 50%;
+    box-shadow: 0 0 22px rgba(224, 218, 193, 0.48), inset 0 0 12px rgba(255, 248, 235, 0.3);
+    opacity: 0;
+    animation: story-ripple 1.15s cubic-bezier(0.12, 0.62, 0.25, 1) forwards;
+  }
+
+  .story-ripple::before,
+  .story-ripple::after {
+    position: absolute;
+    border: 1px solid rgba(224, 218, 193, 0.55);
+    border-radius: inherit;
+    content: '';
+  }
+
+  .story-ripple::before { inset: -9px; }
+  .story-ripple::after { inset: 7px; opacity: 0.72; }
+
+  .story-ripple.is-strong {
+    width: 42px;
+    height: 42px;
+    margin: -21px 0 0 -21px;
+    border-width: 2px;
+    box-shadow: 0 0 30px rgba(255, 248, 235, 0.72), inset 0 0 16px rgba(255, 248, 235, 0.48);
+    animation-duration: 1.4s;
+  }
+
+  @keyframes story-ripple {
+    0% { opacity: 0.9; transform: scale(0.25); }
+    22% { opacity: 0.78; }
+    100% { opacity: 0; transform: scale(6.2); }
+  }
+
   .story-frame {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    padding: 108px clamp(28px, 4.1vw, 72px) 38px;
+    position: absolute;
+    z-index: 9;
+    inset: 0;
+    pointer-events: none;
   }
 
   .story-frame::before {
     position: absolute;
     inset: 82px 24px 24px;
-    border: 1px solid rgba(244, 237, 222, 0.16);
+    border: 1px solid rgba(244, 237, 222, 0.18);
     content: '';
-    pointer-events: none;
   }
 
-  .story-intro {
-    --intro-opacity: 1;
+  .story-frame__hint {
     position: absolute;
-    top: 19%;
-    left: clamp(28px, 4.1vw, 72px);
-    width: min(39vw, 590px);
-    opacity: var(--intro-opacity);
-    transform: translateY(calc((1 - var(--intro-opacity)) * -18px));
-    transition: opacity 120ms linear, transform 120ms linear;
+    top: 104px;
+    right: clamp(38px, 5vw, 86px);
+    margin: 0;
+    color: rgba(244, 237, 222, 0.64);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .story-pages {
+    position: relative;
+    z-index: 10;
+    margin-top: -100svh;
+  }
+
+  .story-page {
+    position: relative;
+    display: grid;
+    min-height: 100svh;
+    padding: 120px clamp(42px, 6vw, 110px) 116px;
+    align-items: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    pointer-events: none;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .story-page__content,
+  .story-note {
+    opacity: 0.12;
+    filter: blur(5px);
+    transform: translateY(32px);
+    transition: opacity 420ms ease, filter 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .story-page.is-active .story-page__content,
+  .story-page.is-active .story-note {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .story-page__content { width: min(40vw, 610px); }
+
+  .story-page__content--intro,
+  .story-page__content--left {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .story-page__content--right {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .story-page__content--low {
+    align-self: end;
+    margin-bottom: 8vh;
   }
 
   .story-kicker,
-  .story-beat p,
-  .story-hud,
-  .story-scroll {
+  .story-chapter,
+  .story-hud {
     margin: 0;
     font-size: 10px;
     font-weight: 700;
@@ -407,7 +481,7 @@ const beats = [
     text-transform: uppercase;
   }
 
-  .story-intro h1 {
+  .story-page h1 {
     display: flex;
     margin: 18px 0 12px;
     flex-direction: column;
@@ -417,7 +491,6 @@ const beats = [
     line-height: 0.76;
     letter-spacing: -0.025em;
     text-transform: uppercase;
-    text-wrap: balance;
   }
 
   .story-lead {
@@ -427,9 +500,10 @@ const beats = [
     font-weight: 700;
   }
 
-  .story-summary {
+  .story-summary,
+  .story-page__content > p:last-of-type {
     max-width: 520px;
-    margin: 10px 0 0;
+    margin: 12px 0 0;
     color: rgba(244, 237, 222, 0.78);
     font-size: 13px;
     line-height: 1.85;
@@ -441,40 +515,37 @@ const beats = [
     gap: 10px;
   }
 
-  .story-actions a {
+  .story-actions a,
+  .story-next {
     display: inline-flex;
-    min-height: 38px;
+    min-height: 40px;
     align-items: center;
     gap: 18px;
-    padding: 0 16px;
+    padding: 0 17px;
     color: var(--story-cream);
-    border: 1px solid rgba(244, 237, 222, 0.42);
+    border: 1px solid rgba(244, 237, 222, 0.44);
     border-radius: 999px;
-    background: rgba(14, 17, 14, 0.3);
+    background: rgba(14, 17, 14, 0.32);
     backdrop-filter: blur(8px);
     font-size: 11px;
     transition: color 180ms ease, background 180ms ease, transform 180ms ease;
   }
 
   .story-actions a:first-child,
-  .story-actions a:hover {
+  .story-actions a:hover,
+  .story-next:hover {
     color: #20231d;
     background: var(--story-cream);
     transform: translateY(-2px);
   }
 
   .story-note {
-    --intro-opacity: 1;
     position: absolute;
-    right: clamp(28px, 5vw, 86px);
+    top: 22%;
+    right: clamp(42px, 6vw, 110px);
     width: min(18vw, 260px);
-    opacity: var(--intro-opacity);
     text-align: right;
-    transition: opacity 120ms linear;
   }
-
-  .story-note--top { top: 22%; }
-  .story-note--bottom { bottom: 17%; }
 
   .story-note strong {
     display: block;
@@ -493,313 +564,175 @@ const beats = [
     line-height: 1.8;
   }
 
-  .story-beats {
-    position: absolute;
-    inset: 0;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    pointer-events: none;
+  .story-chapter {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: rgba(244, 237, 222, 0.66);
   }
 
-  .story-beat {
-    --beat-opacity: 0;
-    position: absolute;
-    display: grid;
-    width: min(34vw, 520px);
-    padding: 22px 0;
-    opacity: var(--beat-opacity);
-    border-top: 1px solid rgba(244, 237, 222, calc(0.16 + var(--beat-opacity) * 0.5));
-    grid-template-columns: 45px 1fr;
-    gap: 20px;
-    transform: translateY(calc((1 - var(--beat-opacity)) * 28px));
-    transition: opacity 90ms linear, transform 120ms linear;
-  }
-
-  .story-beat--one {
-    top: 24%;
-    left: clamp(28px, 5vw, 86px);
-  }
-
-  .story-beat--two {
-    top: 21%;
-    right: clamp(28px, 5vw, 86px);
-  }
-
-  .story-beat--three {
-    right: clamp(28px, 5vw, 86px);
-    bottom: 17%;
-  }
-
-  .story-beat__number {
-    padding-top: 5px;
-    color: rgba(244, 237, 222, 0.58);
+  .story-chapter span {
     font-family: Georgia, serif;
     font-size: 12px;
+    letter-spacing: 0;
   }
 
-  .story-beat p {
-    color: rgba(244, 237, 222, 0.62);
-  }
-
-  .story-beat h2 {
-    margin: 11px 0 0;
-    font-family: var(--sans);
-    font-size: clamp(25px, 2.35vw, 42px);
+  .story-page h2 {
+    margin: 18px 0 0;
+    font-size: clamp(34px, 3.6vw, 64px);
     font-weight: 700;
-    line-height: 1.24;
-    letter-spacing: -0.04em;
+    line-height: 1.13;
+    letter-spacing: -0.055em;
     text-wrap: balance;
   }
 
+  .story-next { width: fit-content; margin-top: 25px; }
+
   .story-hud {
     position: absolute;
-    right: clamp(32px, 5vw, 86px);
-    bottom: 39px;
-    left: clamp(32px, 5vw, 86px);
+    right: clamp(40px, 6vw, 110px);
+    bottom: 40px;
+    left: clamp(40px, 6vw, 110px);
     display: grid;
     align-items: center;
-    grid-template-columns: auto 1fr auto;
-    gap: 24px;
+    grid-template-columns: minmax(190px, auto) 1fr auto;
+    gap: 30px;
   }
 
   .story-hud__chapter,
-  .story-hud__time {
+  .story-hud__signature {
     display: flex;
     gap: 12px;
     white-space: nowrap;
   }
 
   .story-hud__chapter span:last-child,
-  .story-hud__time span:last-child {
-    color: rgba(244, 237, 222, 0.5);
+  .story-hud__signature span:last-child { color: rgba(244, 237, 222, 0.5); }
+
+  .story-hud__steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
   }
 
-  .story-hud__track {
-    height: 1px;
+  .story-hud__steps span {
+    position: relative;
+    height: 2px;
     overflow: hidden;
-    background: rgba(244, 237, 222, 0.26);
+    background: rgba(244, 237, 222, 0.24);
   }
 
-  .story-hud__track span {
-    display: block;
-    width: 100%;
-    height: 100%;
+  .story-hud__steps span::after {
+    position: absolute;
+    inset: 0;
+    content: '';
     background: var(--story-cream);
     transform: scaleX(0);
     transform-origin: left;
-    will-change: transform;
+    transition: transform 320ms ease;
   }
 
-  .story-scroll {
-    --intro-opacity: 1;
-    position: absolute;
-    bottom: 75px;
-    left: 50%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 9px;
-    opacity: var(--intro-opacity);
-    transform: translateX(-50%);
-  }
-
-  .story-scroll i {
-    position: relative;
-    width: 1px;
-    height: 25px;
-    overflow: hidden;
-    background: rgba(244, 237, 222, 0.32);
-  }
-
-  .story-scroll i::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1px;
-    height: 11px;
-    content: '';
-    background: var(--story-cream);
-    animation: story-scroll-line 1.6s ease-in-out infinite;
-  }
-
-  @keyframes story-scroll-line {
-    0% { transform: translateY(-13px); }
-    70%, 100% { transform: translateY(27px); }
-  }
+  .story-hud__steps span.is-active::after { transform: scaleX(1); }
 
   @media (max-width: 820px) {
-    .story {
-      height: 420svh;
-    }
-
-    .story-sticky {
-      min-height: 580px;
-    }
+    .story-sticky { min-height: 580px; }
 
     .story-media {
-      inset: -2%;
+      inset: -3%;
+      transform: scale(1.07);
     }
 
     .story-poster,
-    .story-video {
-      object-position: 50% center;
-    }
+    .story-video { object-position: 50% center; }
 
     .story-shade {
       background:
-        linear-gradient(180deg, rgba(10, 12, 10, 0.42) 0%, transparent 26%, transparent 48%, rgba(9, 11, 9, 0.86) 100%),
-        radial-gradient(circle at 50% 42%, transparent 20%, rgba(10, 12, 10, 0.26) 100%);
+        linear-gradient(180deg, rgba(10, 12, 10, 0.44) 0%, transparent 25%, transparent 48%, rgba(9, 11, 9, 0.88) 100%),
+        radial-gradient(circle at 50% 42%, transparent 20%, rgba(10, 12, 10, 0.3) 100%);
     }
 
-    .story-frame {
-      padding: 88px 20px 24px;
+    .story-frame::before { inset: 72px 12px 12px; }
+    .story-frame__hint,
+    .story-note { display: none; }
+
+    .story-page {
+      padding: 92px 27px 210px;
+      align-items: end;
+      grid-template-columns: 1fr;
     }
 
-    .story-frame::before {
-      inset: 72px 12px 12px;
+    .story-page__content,
+    .story-page__content--intro,
+    .story-page__content--left,
+    .story-page__content--right {
+      width: 100%;
+      grid-column: 1;
+      justify-self: stretch;
     }
 
-    .story-intro {
-      top: auto;
-      right: 27px;
-      bottom: 112px;
-      left: 27px;
-      width: auto;
-    }
-
-    .story-intro h1 {
-      margin-top: 12px;
-      font-size: clamp(72px, 22vw, 112px);
-    }
-
-    .story-lead {
-      margin-top: 18px;
-      font-size: 18px;
-    }
-
-    .story-summary {
-      display: none;
-    }
-
-    .story-actions {
-      margin-top: 18px;
-    }
-
-    .story-note,
-    .story-scroll {
-      display: none;
-    }
-
-    .story-beat {
-      top: auto;
-      right: 27px;
-      bottom: 112px;
-      left: 27px;
-      width: auto;
-      padding: 18px 0;
-      grid-template-columns: 32px 1fr;
-      gap: 12px;
-    }
-
-    .story-beat h2 {
-      font-size: clamp(24px, 7.5vw, 34px);
-    }
+    .story-page__content--low { align-self: end; margin-bottom: 0; }
+    .story-page h1 { font-size: clamp(72px, 22vw, 112px); }
+    .story-page h2 { font-size: clamp(31px, 9.2vw, 44px); }
+    .story-summary { display: none; }
 
     .story-hud {
       right: 27px;
-      bottom: 35px;
+      bottom: 34px;
       left: 27px;
-      display: block;
+      grid-template-columns: 1fr auto;
+      gap: 12px 20px;
     }
 
-    .story-hud__chapter,
-    .story-hud__time {
-      justify-content: space-between;
-    }
-
-    .story-hud__track {
-      margin: 11px 0;
-    }
+    .story-hud__steps { grid-row: 2; grid-column: 1 / -1; }
   }
 
   @media (max-width: 480px) {
-    .story-intro h1 {
-      font-size: clamp(68px, 21vw, 96px);
-    }
+    .story-page h1 { font-size: clamp(68px, 21vw, 96px); }
+    .story-actions a { min-height: 36px; gap: 10px; padding: 0 13px; font-size: 10px; }
+    .story-kicker { font-size: 9px; }
+  }
 
-    .story-actions a {
-      min-height: 36px;
-      gap: 10px;
-      padding: 0 13px;
-      font-size: 10px;
-    }
-
-    .story-kicker {
-      font-size: 9px;
-    }
+  @media (pointer: coarse) {
+    .story-ripples { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .story {
-      height: auto;
-    }
+    html:has(.story) { scroll-snap-type: none; }
+
+    .story { overflow: hidden; }
 
     .story-sticky {
-      position: relative;
-      height: auto;
-      min-height: 100svh;
-      overflow: hidden;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100svh;
     }
 
-    .story-media {
-      inset: 0;
-      transform: none;
-    }
-
+    .story-media { inset: 0; transform: none; }
     .story-video,
-    .story-scroll {
-      display: none;
+    .story-ripples,
+    .story-frame__hint { display: none; }
+    .story-pages { margin-top: 0; }
+
+    .story-page {
+      min-height: auto;
+      padding-top: 90px;
+      padding-bottom: 90px;
+      background: rgba(21, 23, 19, 0.92);
     }
 
-    .story-intro {
-      position: relative;
-      top: auto;
-      left: auto;
-      width: min(620px, 100%);
-      padding-top: 9vh;
-      opacity: 1;
-      transform: none;
+    .story-page:first-child {
+      min-height: 100svh;
+      background: transparent;
     }
 
+    .story-page__content,
     .story-note {
-      display: none;
-    }
-
-    .story-beats {
-      position: relative;
-      display: grid;
-      margin-top: clamp(70px, 14vh, 130px);
-      gap: 14px;
-    }
-
-    .story-beat,
-    .story-beat--one,
-    .story-beat--two,
-    .story-beat--three {
-      position: relative;
-      inset: auto;
-      width: min(620px, 100%);
       opacity: 1;
+      filter: none;
       transform: none;
     }
 
-    .story-hud {
-      position: relative;
-      right: auto;
-      bottom: auto;
-      left: auto;
-      margin-top: 70px;
-    }
+    .story-hud { display: none; }
   }
 </style>

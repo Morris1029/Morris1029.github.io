@@ -12,23 +12,23 @@ export default function ShapeWavesLayer() {
       {!failed && (
         <ShapeWaves
           shapes="mixed"
-          cellSize={12}
-          dotSize={0.55}
-          color="#746f62"
-          hoverColor="#f5efe3"
+          cellSize={10}
+          dotSize={0.64}
+          color="#8f8a78"
+          hoverColor="#fff8eb"
           backgroundColor="#000000"
-          speed={0.35}
-          scale={0.8}
-          contrast={1.1}
-          brightness={0.28}
+          speed={0.42}
+          scale={0.9}
+          contrast={1.32}
+          brightness={0.5}
           flow={0}
-          fade={0.35}
+          fade={0.52}
           interactive={true}
-          splashRadius={64}
-          splashStrength={0.55}
-          glow={0.2}
+          splashRadius={108}
+          splashStrength={1.1}
+          glow={0.56}
           intro={true}
-          introDuration={1.8}
+          introDuration={1.35}
           onError={() => setFailed(true)}
         />
       )}
