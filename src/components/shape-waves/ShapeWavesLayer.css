@@ -3,7 +3,7 @@
   z-index: 4;
   inset: 0;
   overflow: hidden;
-  opacity: 0.44;
+  opacity: 0.25;
   pointer-events: none;
   mix-blend-mode: screen;
 }
@@ -17,27 +17,23 @@
 .story-waves__fallback {
   position: absolute;
   inset: 0;
-  opacity: 0.5;
+  opacity: 0.34;
   background:
     radial-gradient(
-      circle 190px at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(255, 248, 235, 0.28) 0 4%,
-      transparent 5% 19%,
-      rgba(245, 239, 227, 0.34) 20%,
-      transparent 22% 38%,
-      rgba(143, 138, 120, 0.24) 39%,
-      transparent 42% 100%
+      circle 150px at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(245, 239, 227, 0.5),
+      rgba(116, 111, 98, 0.14) 32%,
+      transparent 70%
     );
-  filter: drop-shadow(0 0 16px rgba(255, 248, 235, 0.25));
-  transition: opacity 220ms ease;
+  transition: opacity 300ms ease;
 }
 
 .story-waves:not(.is-fallback) .story-waves__fallback {
-  opacity: 0.2;
+  opacity: 0.12;
 }
 
 .story-waves.is-fallback {
-  opacity: 0.7;
+  opacity: 0.48;
   mix-blend-mode: screen;
 }
 

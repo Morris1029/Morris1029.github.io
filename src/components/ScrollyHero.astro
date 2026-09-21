@@ -35,7 +35,6 @@ const chapters = [
     <div class="story-shade" aria-hidden="true"></div>
     <div class="story-grain" aria-hidden="true"></div>
     <ShapeWavesLayer client:media="(pointer: fine) and (prefers-reduced-motion: no-preference)" />
-    <div class="story-ripples" data-story-ripples aria-hidden="true"></div>
 
     <div class="story-frame" aria-hidden="true">
       <p class="story-frame__hint">Move to meet · Scroll to turn the page</p>
@@ -112,7 +111,6 @@ const chapters = [
     const markers = [...story.querySelectorAll<HTMLElement>('[data-marker]')];
     const chapterNumber = story.querySelector<HTMLElement>('[data-story-number]');
     const chapterName = story.querySelector<HTMLElement>('[data-story-name]');
-    const rippleLayer = story.querySelector<HTMLElement>('[data-story-ripples]');
     const header = document.querySelector<HTMLElement>('[data-header]');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const finePointer = window.matchMedia('(pointer: fine)');
@@ -122,9 +120,6 @@ const chapters = [
     let frameId = 0;
     let pendingTime = Number(pages[0]?.dataset.time ?? 0.72);
     let lastPointerSeek = 0;
-    let lastRippleAt = 0;
-    let lastRippleX = -100;
-    let lastRippleY = -100;
     let resetTimer = 0;
 
     const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
@@ -195,20 +190,6 @@ const chapters = [
       if (!frameId) frameId = window.requestAnimationFrame(update);
     };
 
-    const spawnRipple = (clientX: number, clientY: number, strong = false) => {
-      if (!rippleLayer || !sticky || !finePointer.matches || reduceMotion.matches) return;
-      const bounds = sticky.getBoundingClientRect();
-      if (clientX < bounds.left || clientX > bounds.right || clientY < bounds.top || clientY > bounds.bottom) return;
-
-      while (rippleLayer.childElementCount >= 12) rippleLayer.firstElementChild?.remove();
-      const ripple = document.createElement('i');
-      ripple.className = strong ? 'story-ripple is-strong' : 'story-ripple';
-      ripple.style.left = `${clientX - bounds.left}px`;
-      ripple.style.top = `${clientY - bounds.top}px`;
-      ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
-      rippleLayer.append(ripple);
-    };
-
     const handlePointerMove = (event: PointerEvent) => {
       if (!sticky || !media || !finePointer.matches || reduceMotion.matches || saveData) return;
       const bounds = sticky.getBoundingClientRect();
@@ -233,16 +214,7 @@ const chapters = [
         lastPointerSeek = now;
       }
 
-      const travelled = Math.hypot(event.clientX - lastRippleX, event.clientY - lastRippleY);
-      if (now - lastRippleAt > 85 && travelled > 30) {
-        spawnRipple(event.clientX, event.clientY);
-        lastRippleAt = now;
-        lastRippleX = event.clientX;
-        lastRippleY = event.clientY;
-      }
     };
-
-    const handlePointerDown = (event: PointerEvent) => spawnRipple(event.clientX, event.clientY, true);
 
     const resetPointer = () => {
       media?.style.setProperty('--face-x', '0px');
@@ -256,7 +228,6 @@ const chapters = [
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate, { passive: true });
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
     document.documentElement.addEventListener('mouseleave', resetPointer);
     reduceMotion.addEventListener('change', () => window.location.reload());
     update();
@@ -344,53 +315,6 @@ const chapters = [
     opacity: 0.2;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
     mix-blend-mode: soft-light;
-  }
-
-  .story-ripples {
-    position: absolute;
-    z-index: 7;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    mix-blend-mode: screen;
-  }
-
-  .story-ripple {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    margin: -15px 0 0 -15px;
-    border: 1px solid rgba(250, 242, 226, 0.82);
-    border-radius: 50%;
-    box-shadow: 0 0 22px rgba(224, 218, 193, 0.48), inset 0 0 12px rgba(255, 248, 235, 0.3);
-    opacity: 0;
-    animation: story-ripple 1.15s cubic-bezier(0.12, 0.62, 0.25, 1) forwards;
-  }
-
-  .story-ripple::before,
-  .story-ripple::after {
-    position: absolute;
-    border: 1px solid rgba(224, 218, 193, 0.55);
-    border-radius: inherit;
-    content: '';
-  }
-
-  .story-ripple::before { inset: -9px; }
-  .story-ripple::after { inset: 7px; opacity: 0.72; }
-
-  .story-ripple.is-strong {
-    width: 42px;
-    height: 42px;
-    margin: -21px 0 0 -21px;
-    border-width: 2px;
-    box-shadow: 0 0 30px rgba(255, 248, 235, 0.72), inset 0 0 16px rgba(255, 248, 235, 0.48);
-    animation-duration: 1.4s;
-  }
-
-  @keyframes story-ripple {
-    0% { opacity: 0.9; transform: scale(0.25); }
-    22% { opacity: 0.78; }
-    100% { opacity: 0; transform: scale(6.2); }
   }
 
   .story-frame {
@@ -692,10 +616,6 @@ const chapters = [
     .story-kicker { font-size: 9px; }
   }
 
-  @media (pointer: coarse) {
-    .story-ripples { display: none; }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     html:has(.story) { scroll-snap-type: none; }
 
@@ -710,7 +630,6 @@ const chapters = [
 
     .story-media { inset: 0; transform: none; }
     .story-video,
-    .story-ripples,
     .story-frame__hint { display: none; }
     .story-pages { margin-top: 0; }
 

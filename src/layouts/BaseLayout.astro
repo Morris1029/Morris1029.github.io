@@ -39,7 +39,7 @@ const imageURL = new URL(image, Astro.site);
     <script src="/script.js" defer></script>
     <title>{title}</title>
   </head>
-  <body>
+  <body class:list={{ 'home-page': isHome }}>
     <SiteHeader isHome={isHome} />
     <slot />
     <SiteFooter isHome={isHome} />
