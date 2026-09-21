@@ -1,6 +1,7 @@
 ---
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import '@fontsource/bebas-neue';
 import '../styles/global.css';
 
 interface Props {
@@ -34,9 +35,7 @@ const imageURL = new URL(image, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-    {isHome && (
-      <link rel="preload" href="/assets/life-photo-960.webp" as="image" type="image/webp" />
-    )}
+    {isHome && <link rel="preload" href="/assets/story/hero-poster.webp" as="image" type="image/webp" />}
     <script src="/script.js" defer></script>
     <title>{title}</title>
   </head>

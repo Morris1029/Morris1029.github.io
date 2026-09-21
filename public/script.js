@@ -8,6 +8,7 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matc
 const closeNavigation = () => {
   nav.classList.remove("is-open");
   navToggle.setAttribute("aria-expanded", "false");
+  header.classList.remove("is-menu-open");
   document.body.style.overflow = "";
 };
 
@@ -15,6 +16,7 @@ navToggle.addEventListener("click", () => {
   const nextOpen = navToggle.getAttribute("aria-expanded") !== "true";
   navToggle.setAttribute("aria-expanded", String(nextOpen));
   nav.classList.toggle("is-open", nextOpen);
+  header.classList.toggle("is-menu-open", nextOpen);
   document.body.style.overflow = nextOpen ? "hidden" : "";
 });
 

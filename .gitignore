@@ -9,3 +9,6 @@ Thumbs.db
 node_modules/
 dist/
 .astro/
+
+# Local source media; optimized deployment assets live under public/assets/.
+resorce/

@@ -1,0 +1,805 @@
+---
+import ShapeWavesLayer from './shape-waves/ShapeWavesLayer.jsx';
+
+const beats = [
+  {
+    number: '01',
+    label: 'Curiosity / 00:00—00:03',
+    title: '从好奇出发，把复杂问题拆成第一条可行路径。',
+    start: 0.08,
+    end: 0.3,
+    position: 'one',
+  },
+  {
+    number: '02',
+    label: 'Connection / 00:03—00:07',
+    title: '让信息、模型与工程，在真实场景里彼此连接。',
+    start: 0.35,
+    end: 0.62,
+    position: 'two',
+  },
+  {
+    number: '03',
+    label: 'Impact / 00:07—00:10',
+    title: '把每次探索落成可用产品，也沉淀为下一次出发。',
+    start: 0.67,
+    end: 0.92,
+    position: 'three',
+  },
+];
+---
+
+<section class="story" id="top" data-story aria-labelledby="story-title">
+  <div class="story-sticky">
+    <div class="story-media" data-story-media aria-hidden="true">
+      <img
+        class="story-poster"
+        src="/assets/story/hero-poster.webp"
+        alt=""
+        width="1600"
+        height="900"
+        fetchpriority="high"
+      />
+      <video
+        class="story-video story-video--intro"
+        data-story-video="intro"
+        src="/assets/story/hero-story.mp4"
+        poster="/assets/story/hero-poster.webp"
+        preload="auto"
+        autoplay
+        muted
+        playsinline
+        disablepictureinpicture
+      ></video>
+      <video
+        class="story-video story-video--main"
+        data-story-video="main"
+        src="/assets/story/hero-story.mp4"
+        preload="auto"
+        muted
+        playsinline
+        disablepictureinpicture
+      ></video>
+      <video
+        class="story-video story-video--outro"
+        data-story-video="outro"
+        src="/assets/story/hero-story.mp4"
+        preload="metadata"
+        muted
+        playsinline
+        disablepictureinpicture
+      ></video>
+    </div>
+
+    <div class="story-shade" aria-hidden="true"></div>
+    <div class="story-grain" aria-hidden="true"></div>
+    <ShapeWavesLayer client:media="(pointer: fine) and (prefers-reduced-motion: no-preference)" />
+
+    <div class="story-frame">
+      <div class="story-intro" data-story-intro>
+        <p class="story-kicker">Morris / Developer & Researcher</p>
+        <h1 id="story-title"><span>Build</span><span>With</span><span>Intent.</span></h1>
+        <p class="story-lead">让信息成为可以行动的知识。</p>
+        <p class="story-summary">
+          你好，我是莫东亮。关注信息检索、AI 智能体应用与数据治理，也相信优秀的开发始于对真实问题的理解。
+        </p>
+        <div class="story-actions">
+          <a href="#projects">查看项目 <span aria-hidden="true">↗</span></a>
+          <a href="/blog/">阅读博客 <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <aside class="story-note story-note--top" data-story-intro aria-label="个人特点">
+        <strong>A Curious Mind.</strong>
+        <p>从需求、数据到系统实现，让每一次探索都形成可靠的连接。</p>
+      </aside>
+
+      <aside class="story-note story-note--bottom" data-story-intro aria-label="滚动提示">
+        <strong>Hello, You.</strong>
+        <p>继续向下，看看一名开发者如何把好奇心变成真实作品。</p>
+      </aside>
+
+      <ol class="story-beats" aria-label="视频叙事章节">
+        {beats.map((beat) => (
+          <li
+            class={`story-beat story-beat--${beat.position}`}
+            data-story-beat
+            data-start={beat.start}
+            data-end={beat.end}
+          >
+            <span class="story-beat__number">{beat.number}</span>
+            <div>
+              <p>{beat.label}</p>
+              <h2>{beat.title}</h2>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="story-hud" aria-hidden="true">
+        <div class="story-hud__chapter"><span>01 / INTRO</span><span>Scroll story</span></div>
+        <div class="story-hud__track"><span data-story-progress></span></div>
+        <div class="story-hud__time"><span data-story-time>00:00 / 00:10</span><span>MDL © 2026</span></div>
+      </div>
+
+      <div class="story-scroll" data-story-intro aria-hidden="true">
+        <span>Scroll to explore</span>
+        <i></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const story = document.querySelector<HTMLElement>('[data-story]');
+
+  if (story) {
+    const sticky = story.querySelector<HTMLElement>('.story-sticky');
+    const media = story.querySelector<HTMLElement>('[data-story-media]');
+    const introVideo = story.querySelector<HTMLVideoElement>('[data-story-video="intro"]');
+    const mainVideo = story.querySelector<HTMLVideoElement>('[data-story-video="main"]');
+    const outroVideo = story.querySelector<HTMLVideoElement>('[data-story-video="outro"]');
+    const introElements = [...story.querySelectorAll<HTMLElement>('[data-story-intro]')];
+    const beats = [...story.querySelectorAll<HTMLElement>('[data-story-beat]')];
+    const progressBar = story.querySelector<HTMLElement>('[data-story-progress]');
+    const timeLabel = story.querySelector<HTMLElement>('[data-story-time]');
+    const header = document.querySelector<HTMLElement>('[data-header]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const finePointer = window.matchMedia('(pointer: fine)');
+    const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
+    const duration = 10.005;
+    const introEnd = 1.6;
+    const outroStart = 8.4;
+    let progress = 0;
+    let frameId = 0;
+    let mode = '';
+
+    const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+    const smoothstep = (min: number, max: number, value: number) => {
+      const amount = clamp((value - min) / (max - min));
+      return amount * amount * (3 - 2 * amount);
+    };
+    const formatTime = (seconds: number) => `00:${String(Math.floor(seconds)).padStart(2, '0')}`;
+
+    const setStaticMode = () => {
+      story.classList.add('is-static');
+      introVideo?.pause();
+      mainVideo?.pause();
+      outroVideo?.pause();
+    };
+
+    const play = (video: HTMLVideoElement | null) => {
+      video?.play().catch(() => {
+        video?.pause();
+      });
+    };
+
+    const keepInSegment = (video: HTMLVideoElement | null, start: number, end: number) => {
+      if (!video) return;
+      const reset = () => {
+        if (video.currentTime >= end || video.currentTime < start) video.currentTime = start;
+      };
+      video.addEventListener('timeupdate', reset);
+      video.addEventListener('ended', reset);
+    };
+
+    keepInSegment(introVideo, 0, introEnd);
+    keepInSegment(outroVideo, outroStart, duration);
+
+    outroVideo?.addEventListener('loadedmetadata', () => {
+      outroVideo.currentTime = outroStart;
+    }, { once: true });
+
+    [introVideo, mainVideo, outroVideo].forEach((video) => {
+      video?.addEventListener('error', setStaticMode, { once: true });
+    });
+
+    const setPlaybackMode = (nextProgress: number) => {
+      const nextMode = nextProgress >= 0.96 ? 'outro' : nextProgress <= 0.02 ? 'intro' : 'main';
+      if (nextMode === mode) return;
+      mode = nextMode;
+
+      if (nextMode === 'intro') {
+        outroVideo?.pause();
+        play(introVideo);
+      } else if (nextMode === 'outro') {
+        introVideo?.pause();
+        if (outroVideo && (outroVideo.currentTime < outroStart || outroVideo.currentTime >= duration)) {
+          outroVideo.currentTime = outroStart;
+        }
+        play(outroVideo);
+      } else {
+        introVideo?.pause();
+        outroVideo?.pause();
+      }
+    };
+
+    const update = () => {
+      frameId = 0;
+      if (!sticky) return;
+
+      const rect = story.getBoundingClientRect();
+      const travel = Math.max(1, story.offsetHeight - window.innerHeight);
+      progress = clamp(-rect.top / travel);
+      story.style.setProperty('--story-progress', String(progress));
+
+      const introOpacity = 1 - smoothstep(0, 0.02, progress);
+      const outroOpacity = smoothstep(0.96, 0.98, progress);
+      const mainOpacity = clamp(1 - introOpacity - outroOpacity);
+      story.style.setProperty('--intro-video-opacity', String(introOpacity));
+      story.style.setProperty('--main-video-opacity', String(mainOpacity));
+      story.style.setProperty('--outro-video-opacity', String(outroOpacity));
+
+      const introCopyOpacity = 1 - smoothstep(0.03, 0.12, progress);
+      introElements.forEach((element) => {
+        element.style.setProperty('--intro-opacity', String(introCopyOpacity));
+      });
+
+      beats.forEach((beat) => {
+        const start = Number(beat.dataset.start);
+        const end = Number(beat.dataset.end);
+        const opacity = smoothstep(start, start + 0.045, progress)
+          * (1 - smoothstep(end - 0.045, end, progress));
+        beat.style.setProperty('--beat-opacity', String(opacity));
+        beat.toggleAttribute('data-active', opacity > 0.5);
+      });
+
+      if (!reduceMotion.matches && !saveData && !story.classList.contains('is-static')) {
+        setPlaybackMode(progress);
+        if (mainVideo && mainVideo.readyState >= 1) {
+          const targetTime = progress * duration;
+          if (Math.abs(mainVideo.currentTime - targetTime) > 1 / 30) mainVideo.currentTime = targetTime;
+        }
+      }
+
+      if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
+      if (timeLabel) timeLabel.textContent = `${formatTime(progress * duration)} / 00:10`;
+      header?.classList.toggle('is-over-story', rect.bottom > 72 && rect.top < window.innerHeight);
+    };
+
+    const requestUpdate = () => {
+      if (!frameId) frameId = window.requestAnimationFrame(update);
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const bounds = sticky?.getBoundingClientRect();
+      if (!bounds || !finePointer.matches || reduceMotion.matches) return;
+      const xRatio = clamp((event.clientX - bounds.left) / bounds.width);
+      const yRatio = clamp((event.clientY - bounds.top) / bounds.height);
+      story.style.setProperty('--pointer-x', `${xRatio * 100}%`);
+      story.style.setProperty('--pointer-y', `${yRatio * 100}%`);
+
+      if (progress <= 0.03 && media) {
+        media.style.setProperty('--parallax-x', `${(xRatio - 0.5) * 24}px`);
+        media.style.setProperty('--parallax-y', `${(yRatio - 0.5) * 16}px`);
+      } else if (media) {
+        media.style.setProperty('--parallax-x', '0px');
+        media.style.setProperty('--parallax-y', '0px');
+      }
+    };
+
+    if (reduceMotion.matches || saveData) setStaticMode();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate, { passive: true });
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    reduceMotion.addEventListener('change', () => window.location.reload());
+    update();
+  }
+</script>
+
+<style is:global>
+  .story {
+    --story-cream: #f4edde;
+    --story-olive: #7b7564;
+    --story-dark: #151713;
+    --intro-video-opacity: 1;
+    --main-video-opacity: 0;
+    --outro-video-opacity: 0;
+    position: relative;
+    height: 500svh;
+    color: var(--story-cream);
+    background: var(--story-dark);
+  }
+
+  .story-sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 650px;
+    overflow: hidden;
+    isolation: isolate;
+    background: #36372f;
+  }
+
+  .story-media {
+    position: absolute;
+    z-index: 0;
+    inset: -2.5%;
+    transform: translate3d(var(--parallax-x, 0), var(--parallax-y, 0), 0) scale(1.04);
+    transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .story-poster,
+  .story-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 46%;
+  }
+
+  .story-poster {
+    opacity: 1;
+    filter: saturate(0.78) contrast(1.04) brightness(0.78);
+  }
+
+  .story-video {
+    filter: saturate(0.78) contrast(1.04) brightness(0.78);
+    transition: opacity 180ms linear;
+  }
+
+  .story-video--intro { opacity: var(--intro-video-opacity); }
+  .story-video--main { opacity: var(--main-video-opacity); }
+  .story-video--outro { opacity: var(--outro-video-opacity); }
+
+  .story.is-static .story-video {
+    display: none;
+  }
+
+  .story-shade {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(12, 15, 12, 0.72) 0%, rgba(12, 15, 12, 0.18) 34%, transparent 58%, rgba(12, 15, 12, 0.42) 100%),
+      linear-gradient(180deg, rgba(8, 10, 8, 0.42) 0%, transparent 24%, transparent 70%, rgba(8, 10, 8, 0.62) 100%),
+      radial-gradient(circle at 50% 42%, transparent 20%, rgba(12, 14, 11, 0.34) 100%);
+  }
+
+  .story-grain {
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+
+  .story-frame {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    padding: 108px clamp(28px, 4.1vw, 72px) 38px;
+  }
+
+  .story-frame::before {
+    position: absolute;
+    inset: 82px 24px 24px;
+    border: 1px solid rgba(244, 237, 222, 0.16);
+    content: '';
+    pointer-events: none;
+  }
+
+  .story-intro {
+    --intro-opacity: 1;
+    position: absolute;
+    top: 19%;
+    left: clamp(28px, 4.1vw, 72px);
+    width: min(39vw, 590px);
+    opacity: var(--intro-opacity);
+    transform: translateY(calc((1 - var(--intro-opacity)) * -18px));
+    transition: opacity 120ms linear, transform 120ms linear;
+  }
+
+  .story-kicker,
+  .story-beat p,
+  .story-hud,
+  .story-scroll {
+    margin: 0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+  }
+
+  .story-intro h1 {
+    display: flex;
+    margin: 18px 0 12px;
+    flex-direction: column;
+    font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+    font-size: clamp(82px, 8vw, 150px);
+    font-weight: 400;
+    line-height: 0.76;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .story-lead {
+    margin: 25px 0 0;
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.6vw, 27px);
+    font-weight: 700;
+  }
+
+  .story-summary {
+    max-width: 520px;
+    margin: 10px 0 0;
+    color: rgba(244, 237, 222, 0.78);
+    font-size: 13px;
+    line-height: 1.85;
+  }
+
+  .story-actions {
+    display: flex;
+    margin-top: 24px;
+    gap: 10px;
+  }
+
+  .story-actions a {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    gap: 18px;
+    padding: 0 16px;
+    color: var(--story-cream);
+    border: 1px solid rgba(244, 237, 222, 0.42);
+    border-radius: 999px;
+    background: rgba(14, 17, 14, 0.3);
+    backdrop-filter: blur(8px);
+    font-size: 11px;
+    transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+  }
+
+  .story-actions a:first-child,
+  .story-actions a:hover {
+    color: #20231d;
+    background: var(--story-cream);
+    transform: translateY(-2px);
+  }
+
+  .story-note {
+    --intro-opacity: 1;
+    position: absolute;
+    right: clamp(28px, 5vw, 86px);
+    width: min(18vw, 260px);
+    opacity: var(--intro-opacity);
+    text-align: right;
+    transition: opacity 120ms linear;
+  }
+
+  .story-note--top { top: 22%; }
+  .story-note--bottom { bottom: 17%; }
+
+  .story-note strong {
+    display: block;
+    font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+    font-size: clamp(27px, 2.3vw, 42px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .story-note p {
+    margin: 10px 0 0;
+    color: rgba(244, 237, 222, 0.72);
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .story-beats {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    pointer-events: none;
+  }
+
+  .story-beat {
+    --beat-opacity: 0;
+    position: absolute;
+    display: grid;
+    width: min(34vw, 520px);
+    padding: 22px 0;
+    opacity: var(--beat-opacity);
+    border-top: 1px solid rgba(244, 237, 222, calc(0.16 + var(--beat-opacity) * 0.5));
+    grid-template-columns: 45px 1fr;
+    gap: 20px;
+    transform: translateY(calc((1 - var(--beat-opacity)) * 28px));
+    transition: opacity 90ms linear, transform 120ms linear;
+  }
+
+  .story-beat--one {
+    top: 24%;
+    left: clamp(28px, 5vw, 86px);
+  }
+
+  .story-beat--two {
+    top: 21%;
+    right: clamp(28px, 5vw, 86px);
+  }
+
+  .story-beat--three {
+    right: clamp(28px, 5vw, 86px);
+    bottom: 17%;
+  }
+
+  .story-beat__number {
+    padding-top: 5px;
+    color: rgba(244, 237, 222, 0.58);
+    font-family: Georgia, serif;
+    font-size: 12px;
+  }
+
+  .story-beat p {
+    color: rgba(244, 237, 222, 0.62);
+  }
+
+  .story-beat h2 {
+    margin: 11px 0 0;
+    font-family: var(--sans);
+    font-size: clamp(25px, 2.35vw, 42px);
+    font-weight: 700;
+    line-height: 1.24;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .story-hud {
+    position: absolute;
+    right: clamp(32px, 5vw, 86px);
+    bottom: 39px;
+    left: clamp(32px, 5vw, 86px);
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+  }
+
+  .story-hud__chapter,
+  .story-hud__time {
+    display: flex;
+    gap: 12px;
+    white-space: nowrap;
+  }
+
+  .story-hud__chapter span:last-child,
+  .story-hud__time span:last-child {
+    color: rgba(244, 237, 222, 0.5);
+  }
+
+  .story-hud__track {
+    height: 1px;
+    overflow: hidden;
+    background: rgba(244, 237, 222, 0.26);
+  }
+
+  .story-hud__track span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--story-cream);
+    transform: scaleX(0);
+    transform-origin: left;
+    will-change: transform;
+  }
+
+  .story-scroll {
+    --intro-opacity: 1;
+    position: absolute;
+    bottom: 75px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 9px;
+    opacity: var(--intro-opacity);
+    transform: translateX(-50%);
+  }
+
+  .story-scroll i {
+    position: relative;
+    width: 1px;
+    height: 25px;
+    overflow: hidden;
+    background: rgba(244, 237, 222, 0.32);
+  }
+
+  .story-scroll i::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 11px;
+    content: '';
+    background: var(--story-cream);
+    animation: story-scroll-line 1.6s ease-in-out infinite;
+  }
+
+  @keyframes story-scroll-line {
+    0% { transform: translateY(-13px); }
+    70%, 100% { transform: translateY(27px); }
+  }
+
+  @media (max-width: 820px) {
+    .story {
+      height: 420svh;
+    }
+
+    .story-sticky {
+      min-height: 580px;
+    }
+
+    .story-media {
+      inset: -2%;
+    }
+
+    .story-poster,
+    .story-video {
+      object-position: 50% center;
+    }
+
+    .story-shade {
+      background:
+        linear-gradient(180deg, rgba(10, 12, 10, 0.42) 0%, transparent 26%, transparent 48%, rgba(9, 11, 9, 0.86) 100%),
+        radial-gradient(circle at 50% 42%, transparent 20%, rgba(10, 12, 10, 0.26) 100%);
+    }
+
+    .story-frame {
+      padding: 88px 20px 24px;
+    }
+
+    .story-frame::before {
+      inset: 72px 12px 12px;
+    }
+
+    .story-intro {
+      top: auto;
+      right: 27px;
+      bottom: 112px;
+      left: 27px;
+      width: auto;
+    }
+
+    .story-intro h1 {
+      margin-top: 12px;
+      font-size: clamp(72px, 22vw, 112px);
+    }
+
+    .story-lead {
+      margin-top: 18px;
+      font-size: 18px;
+    }
+
+    .story-summary {
+      display: none;
+    }
+
+    .story-actions {
+      margin-top: 18px;
+    }
+
+    .story-note,
+    .story-scroll {
+      display: none;
+    }
+
+    .story-beat {
+      top: auto;
+      right: 27px;
+      bottom: 112px;
+      left: 27px;
+      width: auto;
+      padding: 18px 0;
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+    }
+
+    .story-beat h2 {
+      font-size: clamp(24px, 7.5vw, 34px);
+    }
+
+    .story-hud {
+      right: 27px;
+      bottom: 35px;
+      left: 27px;
+      display: block;
+    }
+
+    .story-hud__chapter,
+    .story-hud__time {
+      justify-content: space-between;
+    }
+
+    .story-hud__track {
+      margin: 11px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .story-intro h1 {
+      font-size: clamp(68px, 21vw, 96px);
+    }
+
+    .story-actions a {
+      min-height: 36px;
+      gap: 10px;
+      padding: 0 13px;
+      font-size: 10px;
+    }
+
+    .story-kicker {
+      font-size: 9px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .story {
+      height: auto;
+    }
+
+    .story-sticky {
+      position: relative;
+      height: auto;
+      min-height: 100svh;
+      overflow: hidden;
+    }
+
+    .story-media {
+      inset: 0;
+      transform: none;
+    }
+
+    .story-video,
+    .story-scroll {
+      display: none;
+    }
+
+    .story-intro {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: min(620px, 100%);
+      padding-top: 9vh;
+      opacity: 1;
+      transform: none;
+    }
+
+    .story-note {
+      display: none;
+    }
+
+    .story-beats {
+      position: relative;
+      display: grid;
+      margin-top: clamp(70px, 14vh, 130px);
+      gap: 14px;
+    }
+
+    .story-beat,
+    .story-beat--one,
+    .story-beat--two,
+    .story-beat--three {
+      position: relative;
+      inset: auto;
+      width: min(620px, 100%);
+      opacity: 1;
+      transform: none;
+    }
+
+    .story-hud {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      margin-top: 70px;
+    }
+  }
+</style>
