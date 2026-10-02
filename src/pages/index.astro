@@ -1,6 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ScrollyHero from '../components/ScrollyHero.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import HonorsSection from '../components/HonorsSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import '../styles/editorial.css';
 ---
 
 <BaseLayout
@@ -170,148 +175,10 @@ import ScrollyHero from '../components/ScrollyHero.astro';
         </div>
       </section>
 
-      <section class="section experience" id="experience" aria-labelledby="experience-title">
-        <div class="section-label reveal">
-          <span>03</span>
-          <p>Journey</p>
-        </div>
-        <div class="section-body">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Education & experience</p>
-            <h2 id="experience-title">在研究与实践之间往返</h2>
-          </div>
-
-          <div class="timeline">
-            <article class="timeline-item reveal">
-              <time datetime="2026-09">2026.09 — 2029.06</time>
-              <div>
-                <p class="timeline-type">教育经历</p>
-                <h3>武汉大学 · 信息管理学院</h3>
-                <p>数据资源管理专业硕士研究生，聚焦信息检索、AI 智能体应用与数据治理。</p>
-              </div>
-            </article>
-            <article class="timeline-item reveal">
-              <time datetime="2025-06">2025.06 — 2025.09</time>
-              <div>
-                <p class="timeline-type">行业实践</p>
-                <h3>中国南方电网数字电网集团信通科技有限公司</h3>
-                <p>解决方案工程师。参与通信产品研究与技术方案设计，主导 AI 隧道监测模型开发与优化。</p>
-              </div>
-            </article>
-            <article class="timeline-item reveal">
-              <time datetime="2024-07">2024.07 — 2024.09</time>
-              <div>
-                <p class="timeline-type">行业实践</p>
-                <h3>广东盈世计算机科技有限公司（Coremail）</h3>
-                <p>产品交付顾问。负责需求分析、市场研究和解决方案设计，并参与邮件业务智能问答大模型实践。</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section projects" id="projects" aria-labelledby="projects-title">
-        <div class="section-label section-label-light reveal">
-          <span>04</span>
-          <p>Selected work</p>
-        </div>
-        <div class="section-body">
-          <div class="section-heading section-heading-light reveal">
-            <p class="eyebrow">From concept to system</p>
-            <h2 id="projects-title">让 AI 进入真实培养场景</h2>
-          </div>
-
-          <article class="project-feature reveal">
-            <div class="project-index">01 / FLAGSHIP</div>
-            <div class="project-copy">
-              <p class="project-status"><span></span> 正在开发 · 计划上线</p>
-              <h3>AI for 卓越工程师培养</h3>
-              <p class="project-lead">
-                面向卓越工程师产教融合培养，探索人工智能如何真正进入选题、学习、组会、入企实践、知识沉淀和成果形成等全过程。
-              </p>
-              <p>
-                我参与业务方案、产品原型、平台功能接入与部分工程实现，涉及校企研学通、第三方 AI 工具与学习平台接入、领域资料检索、创新分析证据增强，以及科研文献推荐接口与实验验证。
-              </p>
-              <ul class="project-tags" aria-label="项目关键词">
-                <li>应用集成</li>
-                <li>领域知识</li>
-                <li>智能体编排</li>
-                <li>数据治理</li>
-              </ul>
-            </div>
-            <div class="project-quote" aria-label="项目定位">
-              <span>“</span>
-              <p>创新引擎回答“定什么题”，校企研学通连接“定题之后如何推进”。</p>
-            </div>
-          </article>
-
-          <div class="project-grid">
-            <article class="project-card reveal">
-              <span>02</span>
-              <p class="project-kicker">Knowledge retrieval</p>
-              <h3>创新雷达 · 领域资料增强</h3>
-              <p>将领域资料召回接入创新分析流程，处理领域隔离、证据注入和资料来源展示。</p>
-            </article>
-            <article class="project-card reveal" data-delay="1">
-              <span>03</span>
-              <p class="project-kicker">Open scholarly data</p>
-              <h3>科研文献推荐与开放数据</h3>
-              <p>设计领域文献推荐接口，并使用 OpenAlex 比较召回规模、论文质量与生成结果。</p>
-            </article>
-            <article class="project-card reveal" data-delay="2">
-              <span>04</span>
-              <p class="project-kicker">Public culture</p>
-              <h3>公共文化服务研究</h3>
-              <p>参与广东省公共文化服务评价，并主持广东乡村新型公共文化空间调查。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section honors" id="honors" aria-labelledby="honors-title">
-        <div class="section-label reveal">
-          <span>05</span>
-          <p>Honors</p>
-        </div>
-        <div class="section-body">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Recognition & credentials</p>
-            <h2 id="honors-title">一些走过的路标</h2>
-          </div>
-
-          <div class="honor-layout">
-            <ul class="honor-list reveal">
-              <li><span>国家励志奖学金</span><strong>2 次</strong></li>
-              <li><span>中山大学优秀学生奖学金</span><strong>2 次</strong></li>
-              <li><span>中山大学优秀共青团干部</span><strong>荣誉</strong></li>
-              <li><span>全国信息资源管理案例大赛</span><strong>复赛入围</strong></li>
-              <li><span>大学生创新训练项目</span><strong>校级优秀结项</strong></li>
-            </ul>
-            <div class="credentials reveal" data-delay="1">
-              <p>专业认证</p>
-              <ul>
-                <li>信息系统项目管理师（高级）</li>
-                <li>IBM Product Manager</li>
-                <li>大学英语六级（CET-6）</li>
-                <li>普通话二级甲等</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="contact" id="contact" aria-labelledby="contact-title">
-        <div class="contact-orbit" aria-hidden="true">
-          <span>Information</span><span>Intelligence</span><span>Impact</span>
-        </div>
-        <p class="eyebrow reveal">Let’s connect</p>
-        <h2 id="contact-title" class="reveal">如果你也关心知识如何流动，<br />欢迎来聊聊。</h2>
-        <a class="contact-email reveal" href="mailto:modd_361@163.com">modd_361@163.com <span>↗</span></a>
-        <div class="social-links reveal" aria-label="社交链接">
-          <a href="https://github.com/Morris1029" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://blog.csdn.net/2301_77043981" target="_blank" rel="noreferrer">CSDN</a>
-        </div>
-      </section>
+      <ExperienceSection />
+      <ProjectsSection />
+      <HonorsSection />
+      <ContactSection />
     </main>
 
 </BaseLayout>
