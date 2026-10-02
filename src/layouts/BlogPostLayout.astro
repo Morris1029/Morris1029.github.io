@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import '../styles/article-paper.css';
 
 const { title, description, pubDate, updatedDate, tags = [] } = Astro.props;
 const formatter = new Intl.DateTimeFormat('zh-CN', {
@@ -9,7 +10,7 @@ const formatter = new Intl.DateTimeFormat('zh-CN', {
 });
 ---
 
-<BaseLayout title={`${title}｜莫东亮`} description={description}>
+<BaseLayout title={`${title}｜莫东亮`} description={description} theme="paper">
   <main id="main-content" class="article-shell">
     <article class="article">
       <a class="article-back" href="/blog/">← 返回博客</a>

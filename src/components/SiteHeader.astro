@@ -1,5 +1,5 @@
 ---
-const { isHome = false } = Astro.props;
+const { isHome = false, isBlog = false } = Astro.props;
 const sectionHref = (section: string) => `${isHome ? '' : '/'}#${section}`;
 ---
 
@@ -22,7 +22,7 @@ const sectionHref = (section: string) => `${isHome ? '' : '/'}#${section}`;
     <a href={sectionHref('focus')}>研究</a>
     <a href={sectionHref('experience')}>经历</a>
     <a href={sectionHref('projects')}>项目</a>
-    <a href="/blog/">博客</a>
+    <a href={isHome ? '#blog' : '/blog/'} class:list={{ 'is-active': isBlog }} aria-current={isBlog ? 'page' : undefined}>博客</a>
     <a href={sectionHref('contact')}>联系</a>
   </nav>
 </header>

@@ -1,11 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ScrollyHero from '../components/ScrollyHero.astro';
 import ExperienceSection from '../components/ExperienceSection.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import HonorsSection from '../components/HonorsSection.astro';
+import BlogJournal from '../components/BlogJournal.astro';
 import ContactSection from '../components/ContactSection.astro';
 import '../styles/editorial.css';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout
@@ -178,6 +183,7 @@ import '../styles/editorial.css';
       <ExperienceSection />
       <ProjectsSection />
       <HonorsSection />
+      <BlogJournal posts={posts} embedded />
       <ContactSection />
     </main>
 
