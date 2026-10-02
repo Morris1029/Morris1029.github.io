@@ -12,66 +12,161 @@ import ScrollyHero from '../components/ScrollyHero.astro';
       <ScrollyHero />
 
       <section class="section about" id="about" aria-labelledby="about-title">
+        <div class="about-window-light" aria-hidden="true"></div>
         <div class="section-label reveal">
           <span>01</span>
           <p>About</p>
         </div>
-        <div class="about-content reveal" data-delay="1">
-          <h2 id="about-title">我关心的，不只是技术是否新颖，<br />而是它能否真正改善人获取与使用知识的方式。</h2>
-          <div class="about-grid">
-            <p>
-              本科就读于中山大学信息管理学院，并辅修心理学。数据库、Web
-              开发、数据可视化与关联数据等课程，让我把关注逐步延伸到数据系统与人工智能应用。
-            </p>
-            <p>
-              我喜欢从需求出发理解问题，也愿意深入数据、模型和系统实现。我持续学习 Python、SQL、机器学习、大语言模型、产品设计与项目管理，并把这些能力用于公共文化研究、企业解决方案和智能平台建设。
-            </p>
+        <div class="about-content">
+          <div class="about-main reveal" data-delay="1">
+            <p class="about-eyebrow">A curious mind / About me <span aria-hidden="true"></span></p>
+            <h2 id="about-title"><span>我关心的，不只是技术是否新颖，</span><span>而是它能否真正改善人</span><span class="about-title-accent">获取与使用知识的方式。</span></h2>
+            <div class="about-grid">
+              <div>
+                <h3>01 / 从哪里出发</h3>
+                <p>
+                  本科就读于中山大学信息管理学院，并辅修心理学。数据库、Web
+                  开发、数据可视化与关联数据等课程，让我把关注逐步延伸到数据系统与人工智能应用。
+                </p>
+              </div>
+              <div>
+                <h3>02 / 如何看待问题</h3>
+                <p>
+                  我喜欢从需求出发理解问题，也愿意深入数据、模型和系统实现。我持续学习 Python、SQL、机器学习、大语言模型、产品设计与项目管理，并把这些能力用于公共文化研究、企业解决方案和智能平台建设。
+                </p>
+              </div>
+            </div>
+            <ul class="about-interests" aria-label="研究方向">
+              <li>信息检索</li>
+              <li>AI 智能体</li>
+              <li>数据治理</li>
+            </ul>
           </div>
-          <div class="fact-row" aria-label="个人经历概览">
-            <div><strong>3</strong><span>持续关注的研究方向</span></div>
-            <div><strong>3</strong><span>跨行业实践经历</span></div>
-            <div><strong>200+</strong><span>志愿服务小时</span></div>
+
+          <aside class="about-media reveal" data-delay="2" aria-label="首页影像手记">
+            <figure class="about-portrait">
+              <img
+                src="/assets/story/hero-poster.webp"
+                alt="暖光下身穿米色卫衣、脸上贴着小贴纸的动画人物"
+                width="1599"
+                height="900"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption><span>Morris / In motion</span><span>00:10</span></figcaption>
+              <svg class="about-seal" viewBox="0 0 144 144" aria-hidden="true" focusable="false">
+                <defs>
+                  <path id="about-seal-top" d="M 19,72 A 53,53 0 0,1 125,72" />
+                  <path id="about-seal-bottom" d="M 19,72 A 53,53 0 0,0 125,72" />
+                </defs>
+                <circle cx="72" cy="72" r="69" />
+                <circle class="about-seal-inner" cx="72" cy="72" r="36" />
+                <text class="about-seal-top"><textPath href="#about-seal-top" startOffset="50%" text-anchor="middle">A CURIOUS MIND</textPath></text>
+                <text class="about-seal-bottom"><textPath href="#about-seal-bottom" startOffset="50%" text-anchor="middle">ABOUT / 01</textPath></text>
+                <text class="about-seal-name" x="72" y="79" text-anchor="middle">MDL</text>
+                <path d="M 16,73 h 8 M 20,69 v 8 M 120,73 h 8 M 124,69 v 8" />
+              </svg>
+            </figure>
+
+            <div class="about-film" aria-hidden="true">
+              <p class="about-film-label">Home / Story</p>
+              <div class="about-film-frames">
+                <figure>
+                  <img src="/assets/story/about-curiosity.webp" alt="" width="640" height="360" loading="lazy" decoding="async" />
+                  <figcaption>01 / Curiosity <span>▸</span></figcaption>
+                </figure>
+                <figure>
+                  <img src="/assets/story/about-connection.webp" alt="" width="640" height="360" loading="lazy" decoding="async" />
+                  <figcaption>02 / Connection <span>▸</span></figcaption>
+                </figure>
+                <figure>
+                  <img src="/assets/story/about-impact.webp" alt="" width="640" height="360" loading="lazy" decoding="async" />
+                  <figcaption>03 / Impact <span>▸</span></figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="about-note">先理解问题，再选择技术。<span aria-hidden="true">☆</span></p>
+          </aside>
+
+          <div class="about-footer reveal">
+            <div class="fact-row" aria-label="个人经历概览">
+              <div><strong>3</strong><span>持续关注的研究方向</span></div>
+              <div><strong>3</strong><span>跨行业实践经历</span></div>
+              <div><strong>200+</strong><span>志愿服务小时</span></div>
+            </div>
+            <a class="about-next" href="#focus" aria-label="继续了解研究方向">02 / Research <span aria-hidden="true">↘</span></a>
           </div>
         </div>
       </section>
 
       <section class="section focus" id="focus" aria-labelledby="focus-title">
+        <div class="about-window-light" aria-hidden="true"></div>
         <div class="section-label reveal">
           <span>02</span>
           <p>Research focus</p>
         </div>
-        <div class="section-body">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Current interests</p>
-            <h2 id="focus-title">三个持续深入的方向</h2>
+        <div class="research-content">
+          <div class="research-header">
+            <div class="research-intro reveal">
+              <p class="about-eyebrow">Current interests / Research notes</p>
+              <h2 id="focus-title">三个持续<span class="about-title-accent">深入的方向</span></h2>
+              <p class="research-lead">让信息成为可以行动的知识。</p>
+            </div>
+            <div class="research-media reveal" data-delay="1" aria-hidden="true">
+              <div class="research-film">
+                <div class="about-film">
+                  <p class="about-film-label">Home / Story</p>
+                  <div class="about-film-frames">
+                    <figure>
+                      <img src="/assets/story/about-curiosity.webp" alt="" width="640" height="360" loading="lazy" decoding="async" />
+                      <figcaption>01 / Curiosity <span>▸</span></figcaption>
+                    </figure>
+                    <figure>
+                      <img src="/assets/story/about-connection.webp" alt="" width="640" height="360" loading="lazy" decoding="async" />
+                      <figcaption>02 / Connection <span>▸</span></figcaption>
+                    </figure>
+                    <figure>
+                      <img src="/assets/story/about-impact.webp" alt="" width="640" height="360" loading="lazy" decoding="async" />
+                      <figcaption>03 / Impact <span>▸</span></figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+              <p class="about-note">先理解问题，再选择技术。<span>☆</span></p>
+            </div>
           </div>
 
-          <ol class="focus-list">
-            <li class="reveal">
-              <span class="focus-number">01</span>
-              <div>
-                <h3>信息检索</h3>
-                <p>探索知识图谱、向量检索与 RAG 的结合，让数据来源更可靠、组织方式更清晰、检索结果更可解释。</p>
-              </div>
-              <span class="focus-en">Information Retrieval</span>
+          <div class="research-caption reveal" aria-hidden="true"><span>03 directions</span><span>From information to action</span></div>
+          <ol class="research-cards">
+            <li class="research-card research-card--paper reveal">
+              <div class="research-card-header" aria-hidden="true"><span>01</span><i></i><span>Retrieve</span></div>
+              <img class="research-diagram" src="/assets/research/retrieval.svg" alt="" width="360" height="150" loading="lazy" decoding="async" aria-hidden="true" />
+              <h3>信息检索</h3>
+              <p class="research-card-en">Information Retrieval</p>
+              <p class="research-card-copy">探索知识图谱、向量检索与 RAG 的结合，让数据来源更可靠、组织方式更清晰、检索结果更可解释。</p>
+              <ul class="research-card-tags" aria-label="信息检索关键词"><li>知识图谱</li><li>向量检索</li><li>RAG</li></ul>
             </li>
-            <li class="reveal" data-delay="1">
-              <span class="focus-number">02</span>
-              <div>
-                <h3>AI 智能体应用</h3>
-                <p>关注智能体在科研、教育与企业知识服务中的任务编排、证据引用、权限隔离和真实工作流嵌入。</p>
-              </div>
-              <span class="focus-en">AI Agents</span>
+            <li class="research-card reveal" data-delay="1">
+              <div class="research-card-header" aria-hidden="true"><span>02</span><i></i><span>Orchestrate</span></div>
+              <img class="research-diagram" src="/assets/research/agents.svg" alt="" width="360" height="150" loading="lazy" decoding="async" aria-hidden="true" />
+              <h3>AI 智能体应用</h3>
+              <p class="research-card-en">AI Agents</p>
+              <p class="research-card-copy">关注智能体在科研、教育与企业知识服务中的任务编排、证据引用、权限隔离和真实工作流嵌入。</p>
+              <ul class="research-card-tags" aria-label="AI 智能体关键词"><li>任务编排</li><li>证据引用</li><li>权限隔离</li></ul>
             </li>
-            <li class="reveal" data-delay="2">
-              <span class="focus-number">03</span>
-              <div>
-                <h3>数据治理</h3>
-                <p>研究数据从采集、清洗、筛选到安全流通与价值释放的完整链路，平衡质量、效率、隐私与合规。</p>
-              </div>
-              <span class="focus-en">Data Governance</span>
+            <li class="research-card reveal" data-delay="2">
+              <div class="research-card-header" aria-hidden="true"><span>03</span><i></i><span>Govern</span></div>
+              <img class="research-diagram" src="/assets/research/governance.svg" alt="" width="360" height="150" loading="lazy" decoding="async" aria-hidden="true" />
+              <h3>数据治理</h3>
+              <p class="research-card-en">Data Governance</p>
+              <p class="research-card-copy">研究数据从采集、清洗、筛选到安全流通与价值释放的完整链路，平衡质量、效率、隐私与合规。</p>
+              <ul class="research-card-tags" aria-label="数据治理关键词"><li>数据质量</li><li>安全流通</li><li>价值释放</li></ul>
             </li>
           </ol>
+          <div class="research-footer reveal">
+            <ul class="research-paths" aria-hidden="true"><li>信息检索</li><li>AI 智能体</li><li>数据治理</li></ul>
+            <a class="about-next" href="#experience" aria-label="继续查看经历">03 / Journey <span aria-hidden="true">↘</span></a>
+          </div>
         </div>
       </section>
 
@@ -220,3 +315,886 @@ import ScrollyHero from '../components/ScrollyHero.astro';
     </main>
 
 </BaseLayout>
+
+<style>
+  .section.about {
+    padding: 84px max(40px, calc((100vw - 1800px) / 2)) 64px;
+    overflow: clip;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: clamp(28px, 3vw, 52px);
+    background:
+      radial-gradient(ellipse at 10% 38%, rgba(217, 198, 147, 0.13), transparent 48%),
+      linear-gradient(120deg, #5e5e4c, #45473b);
+  }
+
+  .section.about::before {
+    opacity: 0.32;
+  }
+
+  .section.about::after {
+    opacity: 0.42;
+    animation: none;
+  }
+
+  .section.about > .about-window-light,
+  .section.focus > .about-window-light {
+    position: absolute;
+    z-index: 0;
+    inset: -24% 66% -18% -12%;
+    pointer-events: none;
+    opacity: 0.24;
+    background: repeating-linear-gradient(0deg, transparent 0 90px, rgba(234, 207, 154, 0.58) 92px 198px, transparent 200px 224px);
+    filter: blur(17px);
+    transform: rotate(-32deg);
+  }
+
+  .about > .section-label {
+    padding-top: 15px;
+  }
+
+  .about-content {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+    gap: 56px clamp(28px, 3vw, 56px);
+  }
+
+  .about-main {
+    padding-top: 24px;
+  }
+
+  .about-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    color: var(--home-sage);
+    font-family: Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .about-eyebrow span {
+    width: 36px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .about-content h2 {
+    margin-top: 32px;
+    font-size: clamp(32px, 2.95vw, 58px);
+    line-height: 1.5;
+    letter-spacing: -0.055em;
+  }
+
+  .about-content h2 > span {
+    display: block;
+  }
+
+  .about-title-accent {
+    position: relative;
+    width: fit-content;
+    padding-bottom: 10px;
+  }
+
+  .about-title-accent::after {
+    position: absolute;
+    right: 48%;
+    bottom: 0;
+    left: 2%;
+    height: 12px;
+    border-top: 3px solid #c79542;
+    border-radius: 50%;
+    content: '';
+    transform: rotate(-3deg);
+  }
+
+  .about .about-grid {
+    max-width: none;
+    margin-top: 40px;
+    gap: 28px;
+    color: rgba(241, 236, 222, 0.82);
+  }
+
+  .about-grid h3 {
+    display: flex;
+    margin-bottom: 13px;
+    align-items: center;
+    gap: 18px;
+    color: var(--home-cream);
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .about-grid h3::after {
+    width: 28px;
+    height: 1px;
+    background: var(--home-line);
+    content: '';
+  }
+
+  .about-grid p {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .about-interests {
+    display: flex;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .about-interests li {
+    padding: 8px 20px;
+    border: 1px solid rgba(241, 234, 219, 0.4);
+    border-radius: 2px;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .about-media {
+    position: relative;
+    min-width: 0;
+    align-self: start;
+  }
+
+  .about-media::before {
+    position: absolute;
+    z-index: -1;
+    inset: -8% -18% -15%;
+    pointer-events: none;
+    background: repeating-radial-gradient(circle at 55% 52%, transparent 0 34px, rgba(241, 234, 219, 0.1) 35px, transparent 36px 48px);
+    border-radius: 50%;
+    content: '';
+  }
+
+  .about-portrait {
+    position: relative;
+    padding: 8px;
+    border: 1px solid rgba(241, 234, 219, 0.5);
+    background: rgba(31, 33, 27, 0.2);
+    box-shadow: 0 16px 38px rgba(24, 26, 20, 0.12);
+  }
+
+  .about-portrait::after {
+    position: absolute;
+    inset: -5px 4px 4px -5px;
+    pointer-events: none;
+    border: 1px solid rgba(241, 234, 219, 0.24);
+    content: '';
+  }
+
+  .about-portrait > img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1.56;
+    border: 1px solid rgba(241, 234, 219, 0.35);
+    object-fit: cover;
+    object-position: 50% 42%;
+    filter: saturate(0.78) contrast(1.02);
+  }
+
+  .about-portrait > figcaption {
+    display: flex;
+    padding: 9px 4px 1px;
+    justify-content: space-between;
+    font-family: Georgia, serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .about-seal {
+    position: absolute;
+    z-index: 1;
+    top: -25px;
+    right: -24px;
+    width: clamp(88px, 7.6vw, 130px);
+    overflow: visible;
+    color: var(--home-cream);
+    fill: #484a3d;
+    stroke: currentColor;
+    stroke-width: 1;
+  }
+
+  .about-seal-inner {
+    opacity: 0.5;
+  }
+
+  .about-seal text {
+    fill: currentColor;
+    stroke: none;
+    font-family: Georgia, serif;
+  }
+
+  .about-seal-top {
+    font-size: 11px;
+    letter-spacing: 2.8px;
+  }
+
+  .about-seal-bottom {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .about-seal-name {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .about-film {
+    margin-top: 13px;
+    padding: 3px 8px 5px;
+    background: rgba(25, 28, 22, 0.68);
+  }
+
+  .about-film-label {
+    margin-bottom: 4px;
+    color: #c9a463;
+    background: repeating-linear-gradient(90deg, transparent 0 12px, rgba(201, 164, 99, 0.3) 12px 17px, transparent 17px 40px) left center / 30% 3px no-repeat;
+    font-size: 7px;
+    line-height: 1.8;
+    letter-spacing: 0.16em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .about-film-frames {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .about-film-frames img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 1px solid rgba(201, 164, 99, 0.45);
+    filter: saturate(0.7);
+  }
+
+  .about-film-frames figcaption {
+    display: flex;
+    padding-top: 5px;
+    justify-content: space-between;
+    font-family: Georgia, serif;
+    font-size: clamp(6px, 0.55vw, 9px);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .about-film-frames figcaption span {
+    color: #c9a463;
+  }
+
+  .about-note {
+    position: relative;
+    z-index: 1;
+    width: fit-content;
+    margin: -2px -10px -24px auto;
+    padding: 12px 18px;
+    color: #34362d;
+    background: #f1eadb;
+    box-shadow: 0 6px 14px rgba(24, 26, 20, 0.16);
+    font-family: var(--serif);
+    font-size: clamp(12px, 1vw, 17px);
+    letter-spacing: 0.08em;
+    transform: rotate(-7deg);
+  }
+
+  .about-note span {
+    margin-left: 12px;
+    color: #bb812d;
+    font-size: 24px;
+    vertical-align: middle;
+  }
+
+  .about-footer {
+    display: grid;
+    padding-top: 28px;
+    align-items: end;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 40px;
+    border-top: 1px solid var(--home-line);
+  }
+
+  .about .fact-row {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .about .fact-row > div,
+  .about .fact-row > div + div {
+    padding: 0 24px;
+    border-right: 1px solid var(--home-line);
+    border-bottom: 0;
+  }
+
+  .about .fact-row > div:first-child {
+    padding-left: 0;
+  }
+
+  .about .fact-row > div:last-child {
+    border-right: 0;
+  }
+
+  .about-next {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 18px;
+    font-family: Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .about-next span {
+    font-family: var(--sans);
+    font-size: 21px;
+    transition: transform 180ms ease;
+  }
+
+  .about-next:hover span {
+    transform: translate(2px, 2px);
+  }
+
+  .about-next:focus-visible {
+    outline: 1px solid var(--home-cream);
+    outline-offset: 6px;
+  }
+
+  .section.focus {
+    padding: 76px max(40px, calc((100vw - 1800px) / 2)) 48px;
+    overflow: clip;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: clamp(28px, 3vw, 52px);
+    background: linear-gradient(125deg, #5b5d4b, #414538);
+  }
+
+  .section.focus::before {
+    opacity: 0.32;
+  }
+
+  .section.focus::after {
+    animation: none;
+    opacity: 0.4;
+  }
+
+  .focus > .section-label {
+    padding-top: 12px;
+  }
+
+  .research-content {
+    position: relative;
+    min-width: 0;
+  }
+
+  .research-content::before {
+    position: absolute;
+    z-index: -1;
+    top: -130px;
+    right: -160px;
+    width: 760px;
+    height: 760px;
+    pointer-events: none;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle, transparent 0 48px, rgba(241, 234, 219, 0.09) 49px, transparent 50px 62px);
+    content: '';
+  }
+
+  .research-header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.94fr);
+    gap: 32px;
+  }
+
+  .research-header h2 {
+    margin-top: 24px;
+    font-family: var(--serif);
+    font-size: clamp(36px, 4.3vw, 76px);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.05em;
+  }
+
+  .research-header .about-title-accent {
+    display: inline-block;
+  }
+
+  .research-lead {
+    margin-top: 16px;
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.55vw, 28px);
+  }
+
+  .research-media {
+    min-width: 0;
+    padding-top: 8px;
+  }
+
+  .research-film {
+    position: relative;
+    padding: 8px;
+    border: 1px solid rgba(241, 234, 219, 0.55);
+    background: rgba(28, 31, 24, 0.55);
+  }
+
+  .research-film::after {
+    position: absolute;
+    inset: -5px 4px 4px -5px;
+    pointer-events: none;
+    border: 1px solid rgba(241, 234, 219, 0.24);
+    content: '';
+  }
+
+  .research-film .about-film {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .research-film .about-film-frames img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: 50% 42%;
+  }
+
+  .research-caption {
+    display: flex;
+    margin: 40px 0 20px;
+    padding-top: 18px;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid var(--home-line);
+    font-family: Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .research-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .research-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    padding: 22px 26px 24px;
+    flex-direction: column;
+    border: 1px solid rgba(241, 234, 219, 0.55);
+    background: rgba(34, 38, 29, 0.18);
+  }
+
+  .research-card--paper {
+    color: #30352b;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: 0 12px 24px rgba(23, 28, 20, 0.14);
+  }
+
+  .research-card--paper::before {
+    position: absolute;
+    z-index: -2;
+    inset: 2px -5px 12px -5px;
+    background: #d3c6aa;
+    content: '';
+    transform: rotate(-2deg);
+  }
+
+  .research-card--paper::after {
+    position: absolute;
+    z-index: -1;
+    inset: -7px -1px -1px;
+    background: linear-gradient(135deg, #f4ead4, #eaddc0);
+    clip-path: polygon(0 0, 23% 0, 25% 7px, 100% 7px, 100% 100%, 0 100%);
+    content: '';
+  }
+
+  .research-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: Georgia, serif;
+  }
+
+  .research-card-header > span:first-child {
+    font-size: 42px;
+    line-height: 1;
+  }
+
+  .research-card-header > span:last-child {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .research-card-header i {
+    height: 1px;
+    flex: 1;
+    background: currentColor;
+    opacity: 0.3;
+  }
+
+  .research-diagram {
+    width: 100%;
+    height: clamp(120px, 10vw, 170px);
+    margin: 20px 0 14px;
+    object-fit: contain;
+  }
+
+  .research-card h3 {
+    font-family: var(--serif);
+    font-size: clamp(25px, 2.05vw, 38px);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.035em;
+  }
+
+  .research-card-en {
+    margin-top: 2px;
+    font-family: Georgia, serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .research-card-copy {
+    margin-top: 18px;
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .research-card-tags {
+    display: grid;
+    margin-top: 22px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .research-card-tags li {
+    padding: 6px 2px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .research-footer {
+    display: flex;
+    margin-top: 30px;
+    padding-top: 20px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    border-top: 1px solid var(--home-line);
+  }
+
+  .research-paths {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .research-paths li {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .research-paths li::before {
+    width: 9px;
+    height: 9px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    content: '';
+  }
+
+  .research-paths li + li::after {
+    width: 28px;
+    height: 1px;
+    order: -1;
+    background: var(--home-line);
+    content: '';
+  }
+
+  @media (max-width: 1100px) {
+    .section.focus {
+      padding: 64px 32px 48px;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 26px;
+    }
+
+    .research-card {
+      padding-right: 18px;
+      padding-left: 18px;
+    }
+
+    .research-card-en {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+    }
+
+    .research-card-tags {
+      gap: 6px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .section.focus {
+      display: block;
+      padding: 64px 24px 40px;
+    }
+
+    .focus > .section-label {
+      margin-bottom: 28px;
+      padding-top: 0;
+    }
+
+    .research-header,
+    .research-cards {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .research-media {
+      width: min(100%, 620px);
+      margin-bottom: 16px;
+      justify-self: center;
+    }
+
+    .research-card {
+      padding: 24px;
+    }
+
+    .research-diagram {
+      max-width: 360px;
+      height: 150px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .research-card h3 {
+      font-size: 30px;
+    }
+
+    .research-card-en {
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .section.focus {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    .research-header h2 {
+      margin-top: 20px;
+      font-size: clamp(28px, 7.4vw, 38px);
+    }
+
+    .research-caption {
+      margin-top: 32px;
+      font-size: 8px;
+      letter-spacing: 0.12em;
+    }
+
+    .research-card {
+      padding: 22px 20px;
+    }
+
+    .research-paths {
+      gap: 12px;
+      font-size: 11px;
+    }
+
+    .research-paths li + li::after {
+      display: none;
+    }
+
+    .research-footer .about-next {
+      margin-left: auto;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .section.about {
+      padding: 72px 32px 56px;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 26px;
+    }
+
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .about-main {
+      padding-top: 0;
+    }
+
+    .about-content h2 {
+      font-size: clamp(34px, 4.1vw, 46px);
+    }
+
+    .about-media {
+      width: min(100%, 620px);
+      justify-self: center;
+    }
+
+    .about-seal {
+      width: 104px;
+    }
+
+    .about-note {
+      font-size: 15px;
+    }
+
+    .about-footer {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .about-next {
+      justify-self: end;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .section.about {
+      display: block;
+      padding: 64px 24px 40px;
+    }
+
+    .about > .section-label {
+      margin-bottom: 28px;
+      padding-top: 0;
+    }
+
+    .about-content h2 {
+      margin-top: 24px;
+    }
+
+  }
+
+  @media (max-width: 560px) {
+    .section.about {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    .about-content {
+      gap: 44px;
+    }
+
+    .about-eyebrow {
+      gap: 16px;
+      font-size: 8px;
+    }
+
+    .about-content h2 {
+      font-size: clamp(27px, 7.7vw, 38px);
+      line-height: 1.55;
+      letter-spacing: -0.04em;
+    }
+
+    .about-content h2 > span {
+      display: inline;
+    }
+
+    .about-title-accent {
+      padding-bottom: 0;
+    }
+
+    .about-title-accent::after {
+      display: none;
+    }
+
+    .about .about-grid {
+      margin-top: 28px;
+      gap: 24px;
+    }
+
+    .about-interests {
+      margin-top: 28px;
+      gap: 10px;
+    }
+
+    .about-interests li {
+      padding: 7px 12px;
+      font-size: 11px;
+    }
+
+    .about-portrait {
+      padding: 6px;
+    }
+
+    .about-seal {
+      top: -20px;
+      right: -8px;
+      width: 88px;
+    }
+
+    .about-film-frames {
+      gap: 6px;
+    }
+
+    .about-film-frames figcaption {
+      font-size: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .about-note {
+      margin-right: 0;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .about .fact-row > div,
+    .about .fact-row > div + div {
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+
+    .about .fact-row > div:first-child {
+      padding-left: 0;
+    }
+
+    .about .fact-row > div:last-child {
+      padding-right: 0;
+    }
+
+    .about .fact-row strong {
+      font-size: 38px;
+    }
+
+    .about .fact-row span {
+      font-size: 12px;
+      letter-spacing: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-next span {
+      transition: none;
+    }
+  }
+</style>

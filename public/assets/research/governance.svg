@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" fill="none" role="img" aria-labelledby="governance-title">
+  <title id="governance-title">Data collection, cleaning and circulation with protection</title>
+  <g stroke="#f1eadb" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m13 48 36-28 40 22-36 28Zm0 19 36-28 40 22-36 28Zm0 19 36-28 40 22-36 28Zm0 19 36-28 40 22-36 28Z"/>
+    <path d="M306 55c10-1 18-5 24-11 6 6 14 10 24 11-1 27-7 44-24 58-17-14-23-31-24-58Z"/>
+    <path d="m321 79 8 8 12-17" stroke-width="1.65"/>
+    <path d="m315 34 3-7m25 16 5-5m4 30 6-2" stroke="#d49a43"/>
+  </g>
+  <g stroke="#d49a43" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M81 91h217m-6-4 6 4-6 4"/>
+    <circle cx="119" cy="91" r="4" fill="#d49a43"/>
+    <circle cx="184" cy="91" r="4" fill="#d49a43" fill-opacity=".7"/>
+    <circle cx="249" cy="91" r="4" fill="#d49a43"/>
+  </g>
+  <g fill="#f1eadb" font-family="Microsoft YaHei, sans-serif" font-size="12" text-anchor="middle">
+    <text x="119" y="73">采集</text>
+    <text x="184" y="73">清洗</text>
+    <text x="249" y="73">流通</text>
+  </g>
+</svg>

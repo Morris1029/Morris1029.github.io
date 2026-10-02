@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" fill="none" role="img" aria-labelledby="agents-title">
+  <title id="agents-title">Task orchestration connects tools and evidence</title>
+  <g stroke="#f1eadb" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M82 59q34-12 64-10m-5-4 5 4-5 4M214 49q34-1 59 10m-4-5 4 5-6 2"/>
+    <path d="M180 95V80m-4 6 4-6 4 6m25 37q32-5 66-36m-7 2 7-2-1 7"/>
+    <path d="M37 44c12-13 29-15 42-2 13 13 11 30-1 39-14 12-35 7-42-7-5-10-5-20 1-30Z"/>
+    <path d="M280 43c12-12 31-12 42 0 13 13 10 31-3 41-13 9-31 5-40-8-7-10-7-23 1-33Z"/>
+    <path d="M163 104c8-10 23-13 33-3 10 9 11 23 2 32-9 10-22 12-32 3-9-8-11-22-3-32Z"/>
+    <circle cx="180" cy="113" r="5.5"/>
+    <path d="M170 130v-3c0-6 4-9 10-9s10 3 10 9v3Z"/>
+    <path d="M153 43c3-18 19-28 36-23 16 5 23 19 20 35-3 16-20 23-34 21-17-3-26-16-22-33Z" stroke="#d49a43" stroke-width="1.75"/>
+    <path d="m183 16 5 1" stroke="#d49a43" opacity=".65"/>
+  </g>
+  <g fill="#f1eadb" font-family="Microsoft YaHei, sans-serif" font-size="14" text-anchor="middle">
+    <text x="58" y="68">任务</text>
+    <text x="181" y="54">编排</text>
+    <text x="301" y="68">工具</text>
+    <text x="225" y="137" font-size="12">证据</text>
+  </g>
+</svg>
