@@ -17,6 +17,22 @@ const formatter = new Intl.DateTimeFormat('zh-CN', {
   day: 'numeric',
 });
 const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师培养项目的建设思考', '工程问题复盘'];
+
+function getExcerpt(post: CollectionEntry<'blog'>) {
+  const entities: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+  const text = (post.rendered?.html ?? '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp);/gi, (_, entity: string) => {
+      if (entity.startsWith('#')) {
+        return String.fromCodePoint(entity[1].toLowerCase() === 'x' ? parseInt(entity.slice(2), 16) : parseInt(entity.slice(1), 10));
+      }
+      return entities[entity.toLowerCase()];
+    })
+    .replace(/\s+/g, ' ')
+    .trim();
+  const characters = Array.from(text);
+  return characters.slice(0, 50).join('') + (characters.length > 50 ? '…' : '');
+}
 ---
 
 <section
@@ -77,6 +93,8 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
             {otherPosts.map((post) => (
               <article class="journal-entry reveal">
                 <PostHeading><a href={`/blog/${post.id}/`}>{post.data.title}<span aria-hidden="true">↗</span></a></PostHeading>
+                <time class="journal-entry-date" datetime={post.data.pubDate.toISOString()}>发布于 {formatter.format(post.data.pubDate)}</time>
+                <p class="journal-entry-excerpt">{getExcerpt(post)}</p>
               </article>
             ))}
           </div>
@@ -241,6 +259,8 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
   .journal-entry h3 { font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1.5; }
   .journal-entry a { display: flex; min-height: 44px; align-items: baseline; justify-content: space-between; gap: 16px; }
   .journal-entry a span { flex-shrink: 0; }
+  .journal-entry-date { display: block; margin-top: 8px; color: var(--home-sage); font-size: 11px; letter-spacing: 0.03em; }
+  .journal-entry-excerpt { margin-top: 12px; font-size: 14px; line-height: 1.85; }
   .journal-more { display: inline-flex; min-height: 44px; gap: 12px; align-items: center; font-family: var(--serif); font-size: 18px; letter-spacing: 0; }
 
   @media (max-width: 1100px) {
