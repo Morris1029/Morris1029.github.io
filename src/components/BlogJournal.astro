@@ -7,7 +7,8 @@ interface Props {
 }
 
 const { posts, embedded = false } = Astro.props;
-const [featured, ...otherPosts] = posts;
+const featured = posts.find((post) => post.id === 'from-information-to-intelligence');
+const otherPosts = posts.filter((post) => post.id !== 'from-information-to-intelligence');
 const Heading = embedded ? 'h2' : 'h1';
 const PostHeading = embedded ? 'h3' : 'h2';
 const formatter = new Intl.DateTimeFormat('zh-CN', {
@@ -41,13 +42,13 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
       </aside>
     </header>
 
-    <div class="journal-caption reveal" aria-hidden="true"><span>Opening note</span><span>Writing in progress</span></div>
+    <div class="journal-caption reveal" aria-hidden="true"><span>Blog introduction</span><span>Writing in progress</span></div>
     <div class="journal-layout">
       <div class="journal-articles" aria-label="文章列表">
         {featured ? (
           <article class="editorial-paper journal-featured reveal">
             <div class="journal-entry-meta">
-              <p><span aria-hidden="true">01</span> / 开篇手记</p>
+              <p>博客记录</p>
               <i aria-hidden="true"></i>
               <time datetime={featured.data.pubDate.toISOString()}>{formatter.format(featured.data.pubDate)}</time>
             </div>
@@ -73,13 +74,9 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
         )}
         {otherPosts.length > 0 && (
           <div class="journal-other-entries">
-            {otherPosts.map((post, index) => (
+            {otherPosts.map((post) => (
               <article class="journal-entry reveal">
-                <div class="journal-other-meta"><span aria-hidden="true">{String(index + 2).padStart(2, '0')}</span><time datetime={post.data.pubDate.toISOString()}>{formatter.format(post.data.pubDate)}</time></div>
-                <div>
-                  <PostHeading><a href={`/blog/${post.id}/`}>{post.data.title}<span aria-hidden="true">↗</span></a></PostHeading>
-                  <p>{post.data.description}</p>
-                </div>
+                <PostHeading><a href={`/blog/${post.id}/`}>{post.data.title}<span aria-hidden="true">↗</span></a></PostHeading>
               </article>
             ))}
           </div>
@@ -182,7 +179,6 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
   }
 
   .journal-entry-meta p { font-size: 19px; white-space: nowrap; }
-  .journal-entry-meta p span { font-family: Georgia, serif; font-size: 33px; }
   .journal-entry-meta i { height: 1px; background: rgba(67, 63, 49, 0.4); flex: 1; }
   .journal-entry-meta time { font-size: 11px; letter-spacing: 0.03em; white-space: nowrap; }
 
@@ -240,14 +236,11 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
   .journal-quote { margin-top: 25px; padding-top: 22px; border-top: 1px solid rgba(241, 234, 219, 0.34); font-family: var(--serif); font-size: 19px; line-height: 1.85; letter-spacing: 0.06em; }
   .journal-empty { padding: 40px 0; font-size: 15px; line-height: 1.85; }
   .journal-other-entries { margin-top: 38px; }
-  .journal-entry { display: grid; grid-template-columns: 115px minmax(0, 1fr); gap: 22px; padding: 26px 0; border-bottom: 1px solid rgba(241, 234, 219, 0.34); }
-  .journal-other-meta { font-family: Georgia, serif; font-size: 11px; }
-  .journal-other-meta > span { display: block; margin-bottom: 12px; font-size: 22px; }
+  .journal-entry { padding: 26px 0; border-bottom: 1px solid rgba(241, 234, 219, 0.34); }
   .journal-entry h2,
   .journal-entry h3 { font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1.5; }
   .journal-entry a { display: flex; min-height: 44px; align-items: baseline; justify-content: space-between; gap: 16px; }
   .journal-entry a span { flex-shrink: 0; }
-  .journal-entry p { margin-top: 12px; font-size: 15px; line-height: 1.85; }
   .journal-more { display: inline-flex; min-height: 44px; gap: 12px; align-items: center; font-family: var(--serif); font-size: 18px; letter-spacing: 0; }
 
   @media (max-width: 1100px) {
@@ -282,7 +275,6 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
     .journal-caption { font-size: 8px; letter-spacing: 0.15em; }
     .journal-featured { padding: 24px 20px; }
     .journal-entry-meta p { font-size: 16px; }
-    .journal-entry-meta p span { font-size: 28px; }
     .journal-entry-meta time { font-size: 10px; }
     .journal-entry-meta i { display: none; }
     .journal-entry-meta { justify-content: space-between; }
@@ -291,9 +283,6 @@ const themes = ['研究阅读', '项目实践', '技术探索', '卓越工程师
     .journal-tags { gap: 8px; }
     .journal-tags li { padding: 6px 9px; }
     .journal-themes ul { display: block; }
-    .journal-entry { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-    .journal-other-meta { display: flex; align-items: baseline; gap: 14px; }
-    .journal-other-meta > span { margin-bottom: 0; }
     .journal-entry h2,
     .journal-entry h3 { font-size: 22px; }
     .journal-footer { gap: 12px; }
